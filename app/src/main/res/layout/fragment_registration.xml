@@ -1,145 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/RegistrationLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="@string/login_logo_content_description"
-        android:src="@drawable/ic_logo_main"
-        app:layout_constraintBottom_toTopOf="@id/firstNameInputEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".LoginFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/firstNameInputEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/transparent"
-        app:boxBackgroundColor="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/lastNameInputEditText"
-        app:layout_constraintEnd_toEndOf="@+id/RegistrationLogo"
-        app:layout_constraintStart_toStartOf="@+id/RegistrationLogo"
-        app:layout_constraintTop_toBottomOf="@+id/RegistrationLogo">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/RegistrationLogo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/first_name"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="18sp" />
+            android:layout_marginBottom="24dp"
+            android:contentDescription="@string/login_logo_content_description"
+            android:src="@drawable/ic_logo_main"
+            app:layout_constraintBottom_toTopOf="@id/firstNameInputEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lastNameInputEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        app:boxBackgroundColor="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/userIdInputEditText"
-        app:layout_constraintEnd_toEndOf="@+id/firstNameInputEditText"
-        app:layout_constraintStart_toStartOf="@+id/firstNameInputEditText"
-        app:layout_constraintTop_toBottomOf="@+id/firstNameInputEditText">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/firstNameInputEditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/last_name"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="18sp" />
+            android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/lastNameInputEditText"
+            app:layout_constraintEnd_toEndOf="@+id/RegistrationLogo"
+            app:layout_constraintStart_toStartOf="@+id/RegistrationLogo"
+            app:layout_constraintTop_toBottomOf="@+id/RegistrationLogo">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/first_name"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="18sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userIdInputEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        app:boxBackgroundColor="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/passwordInputEditText"
-        app:layout_constraintEnd_toEndOf="@+id/lastNameInputEditText"
-        app:layout_constraintStart_toStartOf="@+id/lastNameInputEditText"
-        app:layout_constraintTop_toBottomOf="@+id/lastNameInputEditText">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lastNameInputEditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/user_id"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="18sp" />
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/userIdInputEditText"
+            app:layout_constraintEnd_toEndOf="@+id/firstNameInputEditText"
+            app:layout_constraintStart_toStartOf="@+id/firstNameInputEditText"
+            app:layout_constraintTop_toBottomOf="@+id/firstNameInputEditText">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/last_name"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="18sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordInputEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        app:boxBackgroundColor="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/mobileNumberInputEditText"
-        app:layout_constraintEnd_toEndOf="@+id/userIdInputEditText"
-        app:layout_constraintStart_toStartOf="@+id/userIdInputEditText"
-        app:layout_constraintTop_toBottomOf="@+id/userIdInputEditText">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userIdInputEditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="18sp" />
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/passwordInputEditText"
+            app:layout_constraintEnd_toEndOf="@+id/lastNameInputEditText"
+            app:layout_constraintStart_toStartOf="@+id/lastNameInputEditText"
+            app:layout_constraintTop_toBottomOf="@+id/lastNameInputEditText">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_id"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="18sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/mobileNumberInputEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        app:boxBackgroundColor="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/loginButton"
-        app:layout_constraintEnd_toEndOf="@+id/passwordInputEditText"
-        app:layout_constraintStart_toStartOf="@+id/passwordInputEditText"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInputEditText">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordInputEditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/mobile_number"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="18sp" />
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/mobileNumberInputEditText"
+            app:layout_constraintEnd_toEndOf="@+id/userIdInputEditText"
+            app:layout_constraintStart_toStartOf="@+id/userIdInputEditText"
+            app:layout_constraintTop_toBottomOf="@+id/userIdInputEditText">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/round_corners"
-        android:text="@string/register"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/mobileNumberInputEditText"
-        app:layout_constraintStart_toStartOf="@+id/mobileNumberInputEditText"
-        app:layout_constraintTop_toBottomOf="@+id/mobileNumberInputEditText" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mobileNumberInputEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/loginButton"
+            app:layout_constraintEnd_toEndOf="@+id/passwordInputEditText"
+            app:layout_constraintStart_toStartOf="@+id/passwordInputEditText"
+            app:layout_constraintTop_toBottomOf="@+id/passwordInputEditText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mobile_number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/round_corners"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/mobileNumberInputEditText"
+            app:layout_constraintStart_toStartOf="@+id/mobileNumberInputEditText"
+            app:layout_constraintTop_toBottomOf="@+id/mobileNumberInputEditText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
