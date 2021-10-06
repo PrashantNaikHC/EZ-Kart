@@ -8,5 +8,15 @@
         android:id="@+id/loginFragment"
         android:name="com.prashant.naik.ezcart.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.prashant.naik.ezcart.RegistrationFragment"
+        android:label="RegistrationFragment"
+        tools:layout="@layout/fragment_registration"/>
 </navigation>
