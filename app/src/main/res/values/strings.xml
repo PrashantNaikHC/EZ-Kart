@@ -20,9 +20,14 @@
     <string name="menu_home">Home</string>
     <string name="menu_view_cart">View Cart</string>
     <string name="menu_orders">Your Orders</string>
-    <string name="menu_feedback">Feedback</string>
+    <string name="menu_feedback">Rate us</string>
     <string name="menu_help">Help</string>
     <string name="menu_logout">Logout</string>
     <string name="nav_drawer_profile_content_description">Profile image</string>
+
+    <!--Feedback Fragment-->
+    <string name="rate_now">Rate Now</string>
+    <string name="feedback_text">Feedback</string>
+    <string name="submit_feedback">Submit Feedback</string>
 
 </resources>

@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         tools:context=".LoginFragment">
 
         <ImageView
@@ -136,9 +137,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/round_corners"
+            style="@style/EZButton"
             android:text="@string/register"
-            android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/mobileNumberInputEditText"
             app:layout_constraintStart_toStartOf="@+id/mobileNumberInputEditText"

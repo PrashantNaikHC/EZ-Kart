@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingTop="@dimen/general_margin"
-    android:paddingBottom="@dimen/general_margin">
+    android:paddingTop="@dimen/margin_general"
+    android:paddingBottom="@dimen/margin_general">
 
 
     <ImageView
@@ -26,7 +26,7 @@
         android:id="@+id/profile_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/general_margin"
+        android:layout_marginTop="@dimen/margin_general"
         android:textAlignment="center"
         android:textSize="24sp"
         android:text="@string/profile_placeholder_text"

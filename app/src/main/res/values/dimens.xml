@@ -1,4 +1,6 @@
 <resources>
-    <dimen name="general_margin">16dp</dimen>
+    <dimen name="margin_general">16dp</dimen>
     <dimen name="margin_xl">48dp</dimen>
+    <dimen name="heading_textsize">20sp</dimen>
+    <dimen name="margin_sm">8dp</dimen>
 </resources>
