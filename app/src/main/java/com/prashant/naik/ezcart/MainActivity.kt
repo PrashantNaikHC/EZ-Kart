@@ -36,8 +36,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.homeFragment,
                 R.id.cartFragment,
-                R.id.orderFragment,
-                R.id.helpFragment
+                R.id.orderFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
