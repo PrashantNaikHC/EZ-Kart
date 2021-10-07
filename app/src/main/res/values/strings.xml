@@ -31,4 +31,9 @@
     <string name="submit_feedback">Submit Feedback</string>
     <string name="product_image">Product image</string>
 
+    <!--Home Fragment-->
+    <string name="dash">-</string>
+    <string name="dollar">$</string>
+    <string name="banner_content_desc">Banner</string>
+
 </resources>
