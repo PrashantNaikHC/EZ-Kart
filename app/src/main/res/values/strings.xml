@@ -18,8 +18,6 @@
     <!--Navigation drawer-->
     <string name="profile_placeholder_text">John Doe</string>
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
     <string name="menu_view_cart">View Cart</string>
     <string name="menu_orders">Your Orders</string>
     <string name="menu_feedback">Feedback</string>

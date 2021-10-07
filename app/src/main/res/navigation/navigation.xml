@@ -36,4 +36,28 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/homeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.prashant.naik.ezcart.ui.cart.CartFragment"
+        android:label="@string/menu_view_cart"
+        tools:layout="@layout/fragment_cart" />
+
+    <fragment
+        android:id="@+id/feedbackFragment"
+        android:name="com.prashant.naik.ezcart.ui.feedback.FeedbackFragment"
+        android:label="@string/menu_feedback"
+        tools:layout="@layout/fragment_feedback" />
+
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.prashant.naik.ezcart.ui.orders.OrderFragment"
+        android:label="@string/menu_orders"
+        tools:layout="@layout/fragment_order" />
+
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.prashant.naik.ezcart.ui.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
 </navigation>

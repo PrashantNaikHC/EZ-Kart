@@ -5,19 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_view_cart"
+            android:id="@+id/cartFragment"
             android:title="@string/menu_view_cart" />
 
         <item
-            android:id="@+id/nav_orders"
+            android:id="@+id/orderFragment"
             android:title="@string/menu_orders" />
 
         <item
-            android:id="@+id/nav_feedback"
+            android:id="@+id/feedbackFragment"
             android:title="@string/menu_feedback" />
 
         <item
-            android:id="@+id/nav_help"
+            android:id="@+id/helpFragment"
             android:title="@string/menu_help" />
 
         <item
