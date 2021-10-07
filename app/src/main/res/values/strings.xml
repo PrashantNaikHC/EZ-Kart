@@ -29,5 +29,6 @@
     <string name="rate_now">Rate Now</string>
     <string name="feedback_text">Feedback</string>
     <string name="submit_feedback">Submit Feedback</string>
+    <string name="product_image">Product image</string>
 
 </resources>
