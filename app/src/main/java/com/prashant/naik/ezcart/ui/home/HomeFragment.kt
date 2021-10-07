@@ -10,6 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.ItemsAdapter
 import com.prashant.naik.ezcart.databinding.FragmentHomeBinding
+import com.prashant.naik.ezcart.network.RetrofitClient
+import com.prashant.naik.ezcart.network.ShoppingApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
 
@@ -23,11 +29,19 @@ class HomeFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         setupAdapter()
-        /*adapter.setData(ItemsResult(listOf(
-            Item("dollar","Sweet Bread","01-12-2020","Bread",10,"1pkt"),
-            Item("dollar","Sweet Bread","01-12-2020","Bread",10,"1pkt"),
-            Item("dollar","Sweet Bread","01-12-2020","Bread",10,"1pkt"),
-        )))*/
+
+        val client = RetrofitClient.getInstance().create(ShoppingApi::class.java)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = client.getProducts()
+            withContext(Dispatchers.Main) {
+                result.body().let {
+                    if (it != null) {
+                        adapter.setData(it)
+                    }
+                }
+            }
+        }
 
         return binding.root
     }
