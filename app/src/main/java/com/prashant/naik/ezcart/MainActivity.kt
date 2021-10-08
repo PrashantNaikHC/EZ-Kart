@@ -1,6 +1,9 @@
 package com.prashant.naik.ezcart
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -13,6 +16,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.prashant.naik.ezcart.ui.home.HomeFragment
+import com.prashant.naik.ezcart.ui.home.HomeFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +46,14 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.setNavigationItemSelectedListener {
+            if(it.itemId == R.id.nav_logout){
+                this.drawerLayout.closeDrawer(GravityCompat.START)
+                Toast.makeText(this, "Logout successful", Toast.LENGTH_SHORT).show()
+                navController.navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+            }
+            true
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
