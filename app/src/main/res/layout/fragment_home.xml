@@ -12,7 +12,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/banner_height"
             android:src="@drawable/banner_01"
             android:contentDescription="@string/banner_content_desc"
             app:layout_constraintEnd_toEndOf="parent"

@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
@@ -60,4 +63,13 @@
         android:name="com.prashant.naik.ezcart.ui.help.HelpFragment"
         android:label="@string/menu_help"
         tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.prashant.naik.ezcart.ui.details.DetailsFragment"
+        tools:layout="@layout/fragment_details">
+
+        <argument
+            android:name="item"
+            app:argType="com.prashant.naik.ezcart.model.Item" />
+    </fragment>
 </navigation>

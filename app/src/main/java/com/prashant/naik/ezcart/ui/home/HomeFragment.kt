@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.ItemsAdapter
 import com.prashant.naik.ezcart.databinding.FragmentHomeBinding
+import com.prashant.naik.ezcart.model.ItemsResult
 import com.prashant.naik.ezcart.network.RetrofitClient
 import com.prashant.naik.ezcart.network.ShoppingApi
 import kotlinx.coroutines.CoroutineScope
@@ -45,8 +47,16 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
     private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter.setClickListener { item ->
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
+                    item
+                )
+            )
+        }
     }
 }

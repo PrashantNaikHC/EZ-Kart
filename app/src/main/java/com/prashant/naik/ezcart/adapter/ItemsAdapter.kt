@@ -12,6 +12,7 @@ import com.prashant.naik.ezcart.utils.ItemDiffUtil
 class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
     var recipeList = emptyList<Item>()
+    private var clickListner : (Item) -> Unit = {}
 
     class MyViewHolder(
         private val binding: ListItemBinding
@@ -26,8 +27,11 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
             }
         }
 
-        fun bind(item: Item) {
+        fun bind(item: Item, clickListner: (Item) -> Unit) {
             binding.item = item
+            binding.root.setOnClickListener{
+                clickListner.invoke(item)
+            }
             binding.executePendingBindings()
         }
     }
@@ -42,12 +46,16 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentRecipe = recipeList[position]
-        holder.bind(currentRecipe)
+        holder.bind(currentRecipe, clickListner)
     }
 
     fun setData(newData: ItemsResult) {
         val diffUtil = ItemDiffUtil(recipeList, newData.items)
         DiffUtil.calculateDiff(diffUtil).dispatchUpdatesTo(this)
         recipeList = newData.items
+    }
+
+    fun setClickListener(clickListner: (Item) -> Unit){
+        this.clickListner = clickListner
     }
 }

@@ -4,4 +4,5 @@
     <dimen name="heading_textsize">20sp</dimen>
     <dimen name="margin_sm">8dp</dimen>
     <dimen name="card_elevation">4dp</dimen>
+    <dimen name="banner_height">200dp</dimen>
 </resources>

@@ -1,8 +1,11 @@
 package com.prashant.naik.ezcart.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Item(
     @SerializedName("currency")
     val currency: String,
@@ -16,4 +19,4 @@ data class Item(
     val price: Int,
     @SerializedName("quantity")
     val quantity: String
-)
+) : Parcelable

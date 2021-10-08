@@ -36,4 +36,10 @@
     <string name="dollar">$</string>
     <string name="banner_content_desc">Banner</string>
 
+    <!--Details Fragment-->
+    <string name="expires_on_text">Expires on :</string>
+    <string name="available_quantity_text">Available quantity :</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="item_content_desc">Item image</string>
+
 </resources>
