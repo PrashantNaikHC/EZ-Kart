@@ -106,6 +106,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
+            android:id="@+id/add_to_cart_button"
             style="@style/EZButton"
             android:text="@string/add_to_cart"
             android:layout_width="wrap_content"

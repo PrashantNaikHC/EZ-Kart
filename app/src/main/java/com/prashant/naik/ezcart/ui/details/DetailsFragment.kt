@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavArgs
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.prashant.naik.ezcart.MainActivity
@@ -26,9 +24,17 @@ class DetailsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
         binding.item = args.item
 
-        (activity as MainActivity).supportActionBar?.title = args.item.itemName
+        setTitle(args.item.itemName)
+
+        binding.addToCartButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun setTitle(itemName: String) {
+        (activity as MainActivity).supportActionBar?.title = itemName
     }
 }
