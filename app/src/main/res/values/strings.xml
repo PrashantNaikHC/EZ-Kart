@@ -7,6 +7,14 @@
     <string name="password">Password</string>
     <string name="user_id">User ID</string>
     <string name="login_logo_content_description">EZ Cart logo</string>
+    <string name="password_validation_text_1">Password should contain minimum of 8 characters</string>
+    <string name="password_validation_text_2">Password should contain one digit</string>
+    <string name="password_validation_text_3">Should contain one lower letter</string>
+    <string name="password_validation_text_4">Should contain one upper letter</string>
+    <string name="password_validation_text_5">Should contain one special character expected</string>
+    <string name="valid_email">✔ Valid email address</string>
+    <string name="valid_password">✔ Valid Password</string>
+    <string name="imvalid_email">Invalid email address</string>
 
     <!--Registration Fragment-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
