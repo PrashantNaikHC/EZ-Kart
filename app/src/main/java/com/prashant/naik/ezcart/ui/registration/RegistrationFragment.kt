@@ -127,10 +127,11 @@ class RegistrationFragment : DisposableFragment() {
         binding.registerButton.setOnClickListener {
             it.hideKeyboard()
             progressDialog.show()
-            viewModel.registerNewUser(collectProfileData(binding))
+            val newUserProfille = collectProfileData(binding)
+            viewModel.registerNewUser(newUserProfille)
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 progressDialog.dismiss()
-                findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment())
+                findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment(newUserProfille))
             }, LOGIN_DELAY)
         }
 

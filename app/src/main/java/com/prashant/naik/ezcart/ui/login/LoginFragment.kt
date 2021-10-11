@@ -66,7 +66,7 @@ class LoginFragment : DisposableFragment() {
                     binding.passwordInputEditText.editText?.text.toString()
                 ).observe(viewLifecycleOwner, { userProfile ->
                     if (binding.passwordInputEditText.validateSignInSuccess(userProfile != null)) {
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(userProfile))
                     }
                 })
             }, Constants.LOGIN_DELAY)

@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.prashant.naik.ezcart.MainActivity
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.ItemsAdapter
 import com.prashant.naik.ezcart.databinding.FragmentHomeBinding
@@ -22,6 +24,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val adapter by lazy { ItemsAdapter() }
+    private val args by navArgs<HomeFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +35,8 @@ class HomeFragment : Fragment() {
         setupAdapter()
 
         val client = RetrofitClient.getInstance().create(ShoppingApi::class.java)
+
+        (activity as MainActivity).updateUserProfileName(args.userProfile.firstName + " " + args.userProfile.lastName)
 
         CoroutineScope(Dispatchers.IO).launch {
             val result = client.getProducts()
