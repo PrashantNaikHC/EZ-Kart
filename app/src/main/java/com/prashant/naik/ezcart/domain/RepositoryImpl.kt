@@ -4,8 +4,9 @@ import com.prashant.naik.ezcart.data.datasource.CachedDataSource
 import com.prashant.naik.ezcart.data.datasource.LocalDataSource
 import com.prashant.naik.ezcart.data.datasource.RemoteDataSource
 import com.prashant.naik.ezcart.data.profile.UserProfile
+import javax.inject.Inject
 
-class RepositoryImpl(
+class RepositoryImpl @Inject constructor(
     val remoteDataSource: RemoteDataSource,
     val localDataSource: LocalDataSource,
     val cachedDataSource: CachedDataSource

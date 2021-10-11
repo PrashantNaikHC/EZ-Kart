@@ -18,7 +18,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.prashant.naik.ezcart.ui.home.HomeFragment
 import com.prashant.naik.ezcart.ui.home.HomeFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration

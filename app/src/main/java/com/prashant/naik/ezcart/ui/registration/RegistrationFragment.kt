@@ -15,10 +15,13 @@ import com.prashant.naik.ezcart.data.profile.UserProfile
 import com.prashant.naik.ezcart.databinding.FragmentRegistrationBinding
 import com.prashant.naik.ezcart.utils.*
 import com.prashant.naik.ezcart.utils.Constants.Companion.LOGIN_DELAY
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RegistrationFragment : DisposableFragment() {
 
     lateinit var binding : FragmentRegistrationBinding
@@ -30,12 +33,16 @@ class RegistrationFragment : DisposableFragment() {
     private var isMobileValidated = false
 
     private lateinit var progressDialog: ProgressDialog
+    @Inject
+    lateinit var factory: RegistrationViewModelFactory
+    lateinit var viewModel: RegistrationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration, container, false)
+        viewModel = ViewModelProvider(this, factory).get(RegistrationViewModel::class.java)
 
         initProgressDialog()
         updateRegistrationButton()
@@ -120,8 +127,7 @@ class RegistrationFragment : DisposableFragment() {
         binding.registerButton.setOnClickListener {
             it.hideKeyboard()
             progressDialog.show()
-            // todo : register user with viewmodel
-            //collectProfileData(binding)
+            viewModel.registerNewUser(collectProfileData(binding))
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 progressDialog.dismiss()
                 findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment())

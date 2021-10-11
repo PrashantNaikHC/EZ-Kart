@@ -2,20 +2,23 @@ package com.prashant.naik.ezcart.ui.registration
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.prashant.naik.ezcart.data.profile.UserProfile
 import com.prashant.naik.ezcart.domain.RegisterUserUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegistrationViewModel(private val registerUserUseCase: RegisterUserUseCase) : ViewModel() {
+@HiltViewModel
+class RegistrationViewModel @Inject constructor(private val registerUserUseCase: RegisterUserUseCase) : ViewModel() {
 
-    fun registerUser(userProfile: UserProfile) = liveData {
+    fun registerNewUser(userProfile: UserProfile) = viewModelScope.launch {
         registerUserUseCase.registerUser(userProfile)
-        emit(true)
     }
 
 }
 
-class RegistrationViewModelFactory(val registerUserUseCase: RegisterUserUseCase) :
+class RegistrationViewModelFactory @Inject constructor(val registerUserUseCase: RegisterUserUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
