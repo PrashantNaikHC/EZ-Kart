@@ -50,10 +50,28 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.setNavigationItemSelectedListener {
-            if(it.itemId == R.id.nav_logout){
-                this.drawerLayout.closeDrawer(GravityCompat.START)
-                Toast.makeText(this, "Logout successful", Toast.LENGTH_SHORT).show()
-                navController.navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+            when(it.itemId) {
+                R.id.nav_logout -> {
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                    Toast.makeText(this, "Logout successful", Toast.LENGTH_SHORT).show()
+                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+                }
+                R.id.cartFragment -> {
+                    navController.navigate(R.id.cartFragment)
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                R.id.orderFragment -> {
+                    navController.navigate(R.id.orderFragment)
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                R.id.feedbackFragment -> {
+                    navController.navigate(R.id.feedbackFragment)
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                R.id.helpFragment -> {
+                    navController.navigate(R.id.helpFragment)
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                }
             }
             true
         }
