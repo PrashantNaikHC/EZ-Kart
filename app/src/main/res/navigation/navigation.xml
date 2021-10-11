@@ -79,6 +79,6 @@
 
         <argument
             android:name="item"
-            app:argType="com.prashant.naik.ezcart.model.Item" />
+            app:argType="com.prashant.naik.ezcart.data.Item" />
     </fragment>
 </navigation>

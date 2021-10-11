@@ -1,4 +1,4 @@
-package com.prashant.naik.ezcart.model
+package com.prashant.naik.ezcart.data
 
 
 import android.os.Parcelable

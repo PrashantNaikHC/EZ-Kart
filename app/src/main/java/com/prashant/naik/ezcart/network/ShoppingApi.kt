@@ -1,7 +1,7 @@
 package com.prashant.naik.ezcart.network
 
-import com.prashant.naik.ezcart.model.ItemsResult
-import com.prashant.naik.ezcart.model.OrdersResult
+import com.prashant.naik.ezcart.data.ItemsResult
+import com.prashant.naik.ezcart.data.OrdersResult
 import retrofit2.Response
 import retrofit2.http.POST
 

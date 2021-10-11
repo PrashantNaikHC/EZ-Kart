@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.prashant.naik.ezcart.model.Item" />
+            type="com.prashant.naik.ezcart.data.Item" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

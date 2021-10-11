@@ -42,6 +42,8 @@ class RegistrationFragment : DisposableFragment() {
         val passwordObservable = createTextInputLayoutObservable(binding.passwordInputEditText.editText!!)
         val mobileNumberObservable = createTextInputLayoutObservable(binding.mobileNumberInputEditText.editText!!)
 
+
+        //region adding subscriptions
         compositeDisposable.add(
             firstNameObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -110,6 +112,7 @@ class RegistrationFragment : DisposableFragment() {
                     override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
                 })
         )
+        //endregion
 
         binding.registerButton.setOnClickListener {
             it.hideKeyboard()

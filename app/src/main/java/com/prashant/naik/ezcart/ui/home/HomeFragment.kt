@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.ItemsAdapter
 import com.prashant.naik.ezcart.databinding.FragmentHomeBinding
-import com.prashant.naik.ezcart.model.ItemsResult
 import com.prashant.naik.ezcart.network.RetrofitClient
 import com.prashant.naik.ezcart.network.ShoppingApi
 import kotlinx.coroutines.CoroutineScope
