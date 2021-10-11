@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.prashant.naik.ezcart.data.profile.UserProfile
-import com.prashant.naik.ezcart.domain.RegisterUserUseCase
+import com.prashant.naik.ezcart.domain.usecases.RegisterUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

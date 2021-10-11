@@ -44,7 +44,7 @@ fun TextInputLayout.validateInputField(target: String?): Boolean {
     return validationSuccessful
 }
 
-fun TextInputLayout.validatePasswordIsValid(target: String?): Boolean {
+fun TextInputLayout.validateSignUpPassword(target: String?): Boolean {
     var validationSuccessful = false
     val numberRegex = Regex("[0-9]+")
     val lowerLettersRegex = Regex("[a-z]+")
@@ -63,6 +63,17 @@ fun TextInputLayout.validatePasswordIsValid(target: String?): Boolean {
         }
     }
     return validationSuccessful
+}
+
+fun TextInputLayout.validateSignInSuccess(isValidCredential: Boolean): Boolean {
+    var isLoginSuccessful = false
+    if(isValidCredential) {
+        this.isErrorEnabled = false
+        isLoginSuccessful = true
+    }  else {
+        this.error = context.getString(R.string.incorrect_password)
+    }
+    return isLoginSuccessful
 }
 
 fun View.hideKeyboard() {

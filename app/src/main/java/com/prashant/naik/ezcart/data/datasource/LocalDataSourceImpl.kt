@@ -10,4 +10,8 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun registerProfile(userProfile: UserProfile) {
         userProfileDao.addUserProfile(userProfile)
     }
+
+    override suspend fun loginUserProfile(userId: String, password: String): UserProfile {
+        return userProfileDao.loginUser(userId, password)
+    }
 }

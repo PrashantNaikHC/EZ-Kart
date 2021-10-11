@@ -101,7 +101,7 @@ class RegistrationFragment : DisposableFragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
-                        isPasswordValidated = binding.passwordInputEditText.validatePasswordIsValid(text)
+                        isPasswordValidated = binding.passwordInputEditText.validateSignUpPassword(text)
                         updateRegistrationButton()
                     }
                     override fun onError(e: Throwable?) {}

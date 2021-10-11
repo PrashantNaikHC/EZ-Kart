@@ -1,4 +1,4 @@
-package com.prashant.naik.ezcart
+package com.prashant.naik.ezcart.ui.login
 
 import android.app.ProgressDialog
 import android.os.Bundle
@@ -9,20 +9,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.databinding.FragmentLoginBinding
 import com.prashant.naik.ezcart.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginFragment : DisposableFragment() {
 
-    private lateinit var binding : FragmentLoginBinding
+    private lateinit var binding: FragmentLoginBinding
 
     private var isUserNameValidated = false
     private var isPasswordValidated = false
 
+    @Inject
+    lateinit var factory: LoginViewModelFactory
+    lateinit var viewModel: LoginViewModel
     private lateinit var progressDialog: ProgressDialog
 
     // Uncomment to make the toolbar invisible
@@ -41,6 +49,7 @@ class LoginFragment : DisposableFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
         binding.signUpTextView.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
         }
@@ -52,21 +61,33 @@ class LoginFragment : DisposableFragment() {
             progressDialog.show()
             Handler(Looper.getMainLooper()).postDelayed({
                 progressDialog.dismiss()
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                viewModel.loginUser(
+                    binding.usernameInputEditText.editText?.text.toString(),
+                    binding.passwordInputEditText.editText?.text.toString()
+                ).observe(viewLifecycleOwner, { userProfile ->
+                    if (binding.passwordInputEditText.validateSignInSuccess(userProfile != null)) {
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                    }
+                })
             }, Constants.LOGIN_DELAY)
         }
 
-        val nameObservable = createTextInputLayoutObservable(binding.usernameInputEditText.editText!!)
-        val passwordObservable = createTextInputLayoutObservable(binding.passwordInputEditText.editText!!)
+        val nameObservable =
+            createTextInputLayoutObservable(binding.usernameInputEditText.editText!!)
+        val passwordObservable =
+            createTextInputLayoutObservable(binding.passwordInputEditText.editText!!)
 
+        //region adding subscriptions
         compositeDisposable.add(
             nameObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
-                        isUserNameValidated = binding.usernameInputEditText.validateInputIsEmail(text)
+                        isUserNameValidated =
+                            binding.usernameInputEditText.validateInputIsEmail(text)
                         updateLoginButton()
                     }
+
                     override fun onError(e: Throwable?) {}
                     override fun onComplete() {}
                     override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
@@ -78,9 +99,10 @@ class LoginFragment : DisposableFragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
-                        isPasswordValidated = binding.passwordInputEditText.validatePasswordIsValid(text)
+                        binding.passwordInputEditText.isErrorEnabled = false
                         updateLoginButton()
                     }
+
                     override fun onError(e: Throwable?) {}
                     override fun onComplete() {}
                     override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
@@ -98,9 +120,7 @@ class LoginFragment : DisposableFragment() {
     }
 
     private fun updateLoginButton() {
-        binding.loginButton.isEnabled = isLoginButtonEnabled()
+        binding.loginButton.isEnabled = isUserNameValidated
     }
-
-    private fun isLoginButtonEnabled() = isUserNameValidated && isPasswordValidated
 
 }
