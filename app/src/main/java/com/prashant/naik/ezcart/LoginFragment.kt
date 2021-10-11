@@ -29,9 +29,6 @@ class LoginFragment : DisposableFragment() {
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
-        progressDialog = ProgressDialog(requireActivity())
-        progressDialog.setMessage("Signing in")
-        progressDialog.setCancelable(false)
     }
 
     override fun onStop() {
@@ -48,14 +45,15 @@ class LoginFragment : DisposableFragment() {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
         }
 
+        initProgressDialog()
         updateLoginButton()
         binding.loginButton.setOnClickListener {
             it.hideKeyboard()
             progressDialog.show()
-            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+            Handler(Looper.getMainLooper()).postDelayed({
                 progressDialog.dismiss()
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-            }, 3000)
+            }, Constants.LOGIN_DELAY)
         }
 
         val nameObservable = createTextInputLayoutObservable(binding.usernameInputEditText.editText!!)
@@ -91,6 +89,12 @@ class LoginFragment : DisposableFragment() {
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun initProgressDialog() {
+        progressDialog = ProgressDialog(requireActivity())
+        progressDialog.setMessage(getString(R.string.login_dialog_text))
+        progressDialog.setCancelable(false)
     }
 
     private fun updateLoginButton() {

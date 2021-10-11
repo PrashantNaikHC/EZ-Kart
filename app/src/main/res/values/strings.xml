@@ -15,6 +15,7 @@
     <string name="valid_email">✔ Valid email address</string>
     <string name="valid_password">✔ Valid Password</string>
     <string name="invalid_email">Invalid email address</string>
+    <string name="login_dialog_text">Signing in</string>
 
     <!--Registration Fragment-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -25,6 +26,7 @@
     <string name="blank_input">Field cannot be blank</string>
     <string name="invalid_mobile">Invalid Phone number</string>
     <string name="valid_mobile">✔ Valid Phone number</string>
+    <string name="register_dialog_text">Registering user</string>
 
     <!--Navigation drawer-->
     <string name="profile_placeholder_text">John Doe</string>
