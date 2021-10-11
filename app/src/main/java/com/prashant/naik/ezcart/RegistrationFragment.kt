@@ -1,23 +1,108 @@
 package com.prashant.naik.ezcart
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.prashant.naik.ezcart.databinding.FragmentRegistrationBinding
+import com.prashant.naik.ezcart.utils.*
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.observers.DisposableObserver
 
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : DisposableFragment() {
 
     lateinit var binding : FragmentRegistrationBinding
+
+    private var isFirstNameValidated = false
+    private var isLastNameValidated = false
+    private var isUserNameValidated = false
+    private var isPasswordValidated = false
+    private var isMobileValidated = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration, container, false)
+
+        updateRegistrationButton()
+        val firstNameObservable = createTextInputLayoutObservable(binding.firstNameInputEditText.editText!!)
+        val lastNameObservable = createTextInputLayoutObservable(binding.lastNameInputEditText.editText!!)
+        val userIdObservable = createTextInputLayoutObservable(binding.userIdInputEditText.editText!!)
+        val passwordObservable = createTextInputLayoutObservable(binding.passwordInputEditText.editText!!)
+        val mobileNumberObservable = createTextInputLayoutObservable(binding.mobileNumberInputEditText.editText!!)
+
+        compositeDisposable.add(
+            firstNameObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
+                    override fun onNext(text: String?) {
+                        isFirstNameValidated = binding.firstNameInputEditText.validateInputField(text)
+                        updateRegistrationButton()
+                    }
+                    override fun onError(e: Throwable?) {}
+                    override fun onComplete() {}
+                    override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
+                })
+        )
+
+        compositeDisposable.add(
+            lastNameObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
+                    override fun onNext(text: String?) {
+                        isLastNameValidated = binding.lastNameInputEditText.validateInputField(text)
+                        updateRegistrationButton()
+                    }
+                    override fun onError(e: Throwable?) {}
+                    override fun onComplete() {}
+                    override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
+                })
+        )
+
+        compositeDisposable.add(
+            userIdObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
+                    override fun onNext(text: String?) {
+                        isUserNameValidated = binding.userIdInputEditText.validateInputIsEmail(text)
+                        updateRegistrationButton()
+                    }
+                    override fun onError(e: Throwable?) {}
+                    override fun onComplete() {}
+                    override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
+                })
+        )
+
+        compositeDisposable.add(
+            passwordObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
+                    override fun onNext(text: String?) {
+                        isPasswordValidated = binding.passwordInputEditText.validatePasswordIsValid(text)
+                        updateRegistrationButton()
+                    }
+                    override fun onError(e: Throwable?) {}
+                    override fun onComplete() {}
+                    override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
+                })
+        )
+        compositeDisposable.add(
+            mobileNumberObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
+                    override fun onNext(text: String?) {
+                        isMobileValidated = binding.mobileNumberInputEditText.validateInputIsMobile(text)
+                        updateRegistrationButton()
+                    }
+                    override fun onError(e: Throwable?) {}
+                    override fun onComplete() {}
+                    override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
+                })
+        )
 
         binding.registerButton.setOnClickListener {
             findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment())
@@ -26,4 +111,11 @@ class RegistrationFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
+
+    private fun updateRegistrationButton() {
+        binding.registerButton.isEnabled = isRegistrationButtonEnabled()
+    }
+
+    private fun isRegistrationButtonEnabled() =
+        isFirstNameValidated && isLastNameValidated && isUserNameValidated && isPasswordValidated && isMobileValidated
 }

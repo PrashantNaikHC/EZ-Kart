@@ -14,7 +14,7 @@
     <string name="password_validation_text_5">Should contain one special character expected</string>
     <string name="valid_email">✔ Valid email address</string>
     <string name="valid_password">✔ Valid Password</string>
-    <string name="imvalid_email">Invalid email address</string>
+    <string name="invalid_email">Invalid email address</string>
 
     <!--Registration Fragment-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -22,6 +22,9 @@
     <string name="last_name">Last Name</string>
     <string name="mobile_number">Mobile No</string>
     <string name="register">Register</string>
+    <string name="blank_input">Field cannot be blank</string>
+    <string name="invalid_mobile">Invalid Phone number</string>
+    <string name="valid_mobile">✔ Valid Phone number</string>
 
     <!--Navigation drawer-->
     <string name="profile_placeholder_text">John Doe</string>

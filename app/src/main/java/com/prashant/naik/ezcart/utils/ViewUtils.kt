@@ -14,7 +14,32 @@ fun TextInputLayout.validateInputIsEmail(target: String?): Boolean {
         this.helperText = context.getString(R.string.valid_email)
         validationSuccessful = true
     } else {
-        this.error = context.getString(R.string.imvalid_email)
+        this.error = context.getString(R.string.invalid_email)
+    }
+    return validationSuccessful
+}
+
+fun TextInputLayout.validateInputIsMobile(target: String?): Boolean {
+    var validationSuccessful = false
+    if (Patterns.PHONE.matcher(target).matches() && target?.length == 10) {
+        this.isErrorEnabled = false
+        this.helperText = context.getString(R.string.valid_mobile)
+        validationSuccessful = true
+    } else {
+        this.error = context.getString(R.string.invalid_mobile)
+    }
+    return validationSuccessful
+}
+
+fun TextInputLayout.validateInputField(target: String?): Boolean {
+    var validationSuccessful = false
+    if(target != null) {
+        if (target.isBlank() || target.isEmpty()) {
+            this.error = context.getString(R.string.blank_input)
+        } else {
+            this.isErrorEnabled = false
+            validationSuccessful = true
+        }
     }
     return validationSuccessful
 }

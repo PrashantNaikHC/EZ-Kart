@@ -9,24 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.jakewharton.rxbinding2.widget.RxTextView
 import com.prashant.naik.ezcart.databinding.FragmentLoginBinding
-import com.prashant.naik.ezcart.utils.hideKeyboard
-import com.prashant.naik.ezcart.utils.validateInputIsEmail
-import com.prashant.naik.ezcart.utils.validatePasswordIsValid
+import com.prashant.naik.ezcart.utils.*
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableObserver
-import java.util.concurrent.TimeUnit
 
-
-class LoginFragment : Fragment() {
+class LoginFragment : DisposableFragment() {
 
     private lateinit var binding : FragmentLoginBinding
-    private val compositeDisposable = CompositeDisposable()
 
     private var isUserNameValidated = false
     private var isPasswordValidated = false
@@ -56,7 +48,7 @@ class LoginFragment : Fragment() {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
         }
 
-        binding.loginButton.isEnabled = isUserNameValidated && isPasswordValidated
+        updateLoginButton()
         binding.loginButton.setOnClickListener {
             it.hideKeyboard()
             progressDialog.show()
@@ -66,15 +58,8 @@ class LoginFragment : Fragment() {
             }, 3000)
         }
 
-        val nameObservable = RxTextView.textChanges(binding.usernameInputEditText.editText!!)
-            .skip(1)
-            .debounce(1000, TimeUnit.MILLISECONDS)
-            .map { it.toString() }
-
-        val passwordObservable = RxTextView.textChanges(binding.passwordInputEditText.editText!!)
-            .skip(1)
-            .debounce(1000, TimeUnit.MILLISECONDS)
-            .map { it.toString() }
+        val nameObservable = createTextInputLayoutObservable(binding.usernameInputEditText.editText!!)
+        val passwordObservable = createTextInputLayoutObservable(binding.passwordInputEditText.editText!!)
 
         compositeDisposable.add(
             nameObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
@@ -82,7 +67,7 @@ class LoginFragment : Fragment() {
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
                         isUserNameValidated = binding.usernameInputEditText.validateInputIsEmail(text)
-                        binding.loginButton.isEnabled = isUserNameValidated && isPasswordValidated
+                        updateLoginButton()
                     }
                     override fun onError(e: Throwable?) {}
                     override fun onComplete() {}
@@ -96,7 +81,7 @@ class LoginFragment : Fragment() {
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
                         isPasswordValidated = binding.passwordInputEditText.validatePasswordIsValid(text)
-                        binding.loginButton.isEnabled = isPasswordValidated && isUserNameValidated
+                        updateLoginButton()
                     }
                     override fun onError(e: Throwable?) {}
                     override fun onComplete() {}
@@ -108,8 +93,10 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        compositeDisposable.clear()
+    private fun updateLoginButton() {
+        binding.loginButton.isEnabled = isLoginButtonEnabled()
     }
+
+    private fun isLoginButtonEnabled() = isUserNameValidated && isPasswordValidated
+
 }
