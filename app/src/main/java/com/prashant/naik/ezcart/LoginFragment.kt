@@ -1,6 +1,9 @@
 package com.prashant.naik.ezcart
 
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,10 +31,15 @@ class LoginFragment : Fragment() {
     private var isUserNameValidated = false
     private var isPasswordValidated = false
 
+    private lateinit var progressDialog: ProgressDialog
+
     // Uncomment to make the toolbar invisible
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+        progressDialog = ProgressDialog(requireActivity())
+        progressDialog.setMessage("Signing in")
+        progressDialog.setCancelable(false)
     }
 
     override fun onStop() {
@@ -50,8 +58,12 @@ class LoginFragment : Fragment() {
 
         binding.loginButton.isEnabled = isUserNameValidated && isPasswordValidated
         binding.loginButton.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
             it.hideKeyboard()
+            progressDialog.show()
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                progressDialog.dismiss()
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            }, 3000)
         }
 
         val nameObservable = RxTextView.textChanges(binding.usernameInputEditText.editText!!)
