@@ -1,4 +1,4 @@
-package com.prashant.naik.ezcart
+package com.prashant.naik.ezcart.ui.registration
 
 import android.app.ProgressDialog
 import android.os.Bundle
@@ -8,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.prashant.naik.ezcart.R
+import com.prashant.naik.ezcart.data.profile.UserProfile
 import com.prashant.naik.ezcart.databinding.FragmentRegistrationBinding
 import com.prashant.naik.ezcart.utils.*
 import com.prashant.naik.ezcart.utils.Constants.Companion.LOGIN_DELAY
@@ -117,6 +120,8 @@ class RegistrationFragment : DisposableFragment() {
         binding.registerButton.setOnClickListener {
             it.hideKeyboard()
             progressDialog.show()
+            // todo : register user with viewmodel
+            //collectProfileData(binding)
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 progressDialog.dismiss()
                 findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment())
@@ -125,6 +130,16 @@ class RegistrationFragment : DisposableFragment() {
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun collectProfileData(binding: FragmentRegistrationBinding): UserProfile {
+        return UserProfile(
+            userId = binding.userIdInputEditText.editText?.text.toString(),
+            firstName = binding.firstNameInputEditText.editText?.text.toString(),
+            lastName = binding.lastNameInputEditText.editText?.text.toString(),
+            password = binding.passwordInputEditText.editText?.text.toString(),
+            phone = binding.mobileNumberInputEditText.editText?.text.toString()
+        )
     }
 
     private fun initProgressDialog() {

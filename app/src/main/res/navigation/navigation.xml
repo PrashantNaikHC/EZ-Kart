@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.prashant.naik.ezcart.RegistrationFragment"
+        android:name="com.prashant.naik.ezcart.ui.registration.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration">
         <action
