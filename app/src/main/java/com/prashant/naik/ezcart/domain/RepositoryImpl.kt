@@ -1,9 +1,11 @@
 package com.prashant.naik.ezcart.domain
 
+import com.prashant.naik.ezcart.data.ItemsResult
 import com.prashant.naik.ezcart.data.datasource.CachedDataSource
 import com.prashant.naik.ezcart.data.datasource.LocalDataSource
 import com.prashant.naik.ezcart.data.datasource.RemoteDataSource
 import com.prashant.naik.ezcart.data.profile.UserProfile
+import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -17,5 +19,9 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun loginUser(userId: String, password: String): UserProfile {
         return localDataSource.loginUserProfile(userId, password)
+    }
+
+    override suspend fun loadLoginItems(): Response<ItemsResult> {
+        return remoteDataSource.loadLoginItems();
     }
 }
