@@ -1,11 +1,16 @@
 package com.prashant.naik.ezcart.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import com.google.android.material.textfield.TextInputLayout
 import com.prashant.naik.ezcart.R
+import com.prashant.naik.ezcart.data.Order
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun TextInputLayout.validateInputIsEmail(target: String?): Boolean {
     var validationSuccessful = false
@@ -80,4 +85,13 @@ fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
+
+
+@SuppressLint("SetTextI18n")
+fun TextView.setOrderHeader(latestOrder: Order) {
+    val date = SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(latestOrder.orderDate)
+    val month = SimpleDateFormat("MMMM", Locale.US).format(date!!)
+    this.text = context.getString(R.string.orders_placeholder_pretext) + " " + month
+}
+
 

@@ -11,7 +11,7 @@ import com.prashant.naik.ezcart.utils.ItemDiffUtil
 
 class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
-    var recipeList = emptyList<Item>()
+    var itemsList = emptyList<Item>()
     private var clickListner : (Item) -> Unit = {}
 
     class MyViewHolder(
@@ -41,18 +41,18 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return recipeList.size
+        return itemsList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentRecipe = recipeList[position]
+        val currentRecipe = itemsList[position]
         holder.bind(currentRecipe, clickListner)
     }
 
     fun setData(newData: ItemsResult) {
-        val diffUtil = ItemDiffUtil(recipeList, newData.items)
+        val diffUtil = ItemDiffUtil(itemsList, newData.items)
         DiffUtil.calculateDiff(diffUtil).dispatchUpdatesTo(this)
-        recipeList = newData.items
+        itemsList = newData.items
     }
 
     fun setClickListener(clickListner: (Item) -> Unit){
