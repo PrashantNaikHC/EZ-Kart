@@ -1,6 +1,7 @@
 package com.prashant.naik.ezcart.domain
 
 import com.prashant.naik.ezcart.data.ItemsResult
+import com.prashant.naik.ezcart.data.OrdersResult
 import com.prashant.naik.ezcart.data.profile.UserProfile
 import retrofit2.Response
 
@@ -9,4 +10,5 @@ interface Repository {
     suspend fun loginUser(userId: String, password: String) : UserProfile
 
     suspend fun loadLoginItems(): Response<ItemsResult>
+    suspend fun loadOrders(): Response<OrdersResult>
 }

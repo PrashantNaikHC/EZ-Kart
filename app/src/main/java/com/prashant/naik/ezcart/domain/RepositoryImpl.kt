@@ -1,6 +1,7 @@
 package com.prashant.naik.ezcart.domain
 
 import com.prashant.naik.ezcart.data.ItemsResult
+import com.prashant.naik.ezcart.data.OrdersResult
 import com.prashant.naik.ezcart.data.datasource.CachedDataSource
 import com.prashant.naik.ezcart.data.datasource.LocalDataSource
 import com.prashant.naik.ezcart.data.datasource.RemoteDataSource
@@ -23,5 +24,9 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun loadLoginItems(): Response<ItemsResult> {
         return remoteDataSource.loadLoginItems();
+    }
+
+    override suspend fun loadOrders(): Response<OrdersResult> {
+        return remoteDataSource.loadOrders()
     }
 }
