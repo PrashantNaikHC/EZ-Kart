@@ -35,6 +35,16 @@ class CartFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(CartViewModel::class.java)
         setupAdapter()
 
+        binding.cartHeader.text = getHighlightedText()
+
+        viewModel.getCartItems().observe(viewLifecycleOwner, { items ->
+            adapter.setData(items)
+        })
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    private fun getHighlightedText(): SpannableString {
         val spannable = SpannableString(getString(R.string.view_cart_header_text))
         spannable.setSpan(
             ForegroundColorSpan(Color.RED),
@@ -42,13 +52,7 @@ class CartFragment : Fragment() {
             24, // end
             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
-        binding.cartHeader.text = spannable
-
-        viewModel.getCartItems().observe(viewLifecycleOwner, { items ->
-            adapter.setData(items)
-        })
-        // Inflate the layout for this fragment
-        return binding.root
+        return spannable
     }
 
     private fun setupAdapter() {

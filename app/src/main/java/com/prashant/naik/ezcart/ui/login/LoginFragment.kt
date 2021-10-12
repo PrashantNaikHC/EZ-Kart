@@ -4,6 +4,9 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,6 +80,8 @@ class LoginFragment : DisposableFragment() {
         val passwordObservable =
             createTextInputLayoutObservable(binding.passwordInputEditText.editText!!)
 
+        binding.signUpTextView.text = setUnderlinedString()
+
         //region adding subscriptions
         compositeDisposable.add(
             nameObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
@@ -108,9 +113,21 @@ class LoginFragment : DisposableFragment() {
                     override fun onSubscribe(d: io.reactivex.disposables.Disposable?) {}
                 })
         )
+        //endregion
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun setUnderlinedString(): SpannableString {
+        val spannable = SpannableString(getString(R.string.signup))
+        spannable.setSpan(
+            UnderlineSpan(),
+            0, // start
+            getString(R.string.signup).length, // end
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
+        return spannable
     }
 
     private fun initProgressDialog() {
