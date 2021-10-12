@@ -7,4 +7,5 @@ interface LocalDataSource {
     suspend fun registerProfile(userProfile: UserProfile)
     suspend fun loginUserProfile(userId: String, password:String): UserProfile
     suspend fun addToCart(item: Item)
+    suspend fun getCartItems(): List<Item>
 }

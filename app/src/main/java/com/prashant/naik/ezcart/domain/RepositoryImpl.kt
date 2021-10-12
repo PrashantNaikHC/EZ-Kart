@@ -24,7 +24,7 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadLoginItems(): Response<ItemsResult> {
-        return remoteDataSource.loadLoginItems();
+        return remoteDataSource.loadLoginItems()
     }
 
     override suspend fun loadOrders(): Response<OrdersResult> {
@@ -33,5 +33,9 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun addToCart(item: Item) {
         localDataSource.addToCart(item)
+    }
+
+    override suspend fun getCartItems(): List<Item> {
+        return localDataSource.getCartItems()
     }
 }

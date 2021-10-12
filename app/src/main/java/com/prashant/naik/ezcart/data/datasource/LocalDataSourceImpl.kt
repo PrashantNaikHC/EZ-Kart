@@ -21,4 +21,8 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun addToCart(item: Item) {
         return itemsDao.addItemToCart(item)
     }
+
+    override suspend fun getCartItems(): List<Item> {
+        return itemsDao.getCartItems()
+    }
 }

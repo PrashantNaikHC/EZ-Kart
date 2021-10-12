@@ -14,4 +14,6 @@ interface Repository {
     suspend fun loadOrders(): Response<OrdersResult>
 
     suspend fun addToCart(item: Item)
+
+    suspend fun getCartItems(): List<Item>
 }

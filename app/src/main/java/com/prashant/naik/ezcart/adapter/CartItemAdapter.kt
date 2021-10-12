@@ -4,33 +4,32 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.prashant.naik.ezcart.databinding.ListItemBinding
 import com.prashant.naik.ezcart.data.Item
-import com.prashant.naik.ezcart.data.ItemsResult
+import com.prashant.naik.ezcart.databinding.ListCartItemBinding
 import com.prashant.naik.ezcart.utils.ItemDiffUtil
 
-class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
+class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 
     var itemsList = emptyList<Item>()
     private var clickListener : (Item) -> Unit = {}
 
     class MyViewHolder(
-        private val binding: ListItemBinding
+        private val binding: ListCartItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         companion object {
             // this is for the onCreateViewHolder to return the viewModel
             fun from(parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val bindingView = ListItemBinding.inflate(layoutInflater, parent, false)
+                val bindingView = ListCartItemBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(bindingView)
             }
         }
 
-        fun bind(item: Item, clickListner: (Item) -> Unit) {
+        fun bind(item: Item, clickListener: (Item) -> Unit) {
             binding.item = item
-            binding.root.setOnClickListener{
-                clickListner.invoke(item)
+            binding.cartItemRemoveButton.setOnClickListener {
+                clickListener.invoke(item)
             }
             binding.executePendingBindings()
         }
@@ -41,21 +40,21 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size
+        return  itemsList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentRecipe = itemsList[position]
-        holder.bind(currentRecipe, clickListener)
+        val currentItem = itemsList[position]
+        holder.bind(currentItem, clickListener)
     }
 
-    fun setData(newData: ItemsResult) {
-        val diffUtil = ItemDiffUtil(itemsList, newData.items)
+    fun setData(newData: List<Item>) {
+        val diffUtil = ItemDiffUtil(itemsList, newData)
         DiffUtil.calculateDiff(diffUtil).dispatchUpdatesTo(this)
-        itemsList = newData.items
+        itemsList = newData
     }
 
-    fun setClickListener(clickListner: (Item) -> Unit){
-        this.clickListener = clickListner
+    fun setClickListener(clickListener: (Item) -> Unit){
+        this.clickListener = clickListener
     }
 }

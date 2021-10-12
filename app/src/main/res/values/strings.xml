@@ -57,4 +57,8 @@
     <string name="item_content_desc">Item image</string>
     <string name="orders_placeholder_pretext">Orders for </string>
 
+    <!--Cart Fragment-->
+    <string name="view_cart_header_text">Hey! No delivery charges on this order</string>
+    <string name="remove_item_from_cart">Remove item from cart</string>
+
 </resources>
