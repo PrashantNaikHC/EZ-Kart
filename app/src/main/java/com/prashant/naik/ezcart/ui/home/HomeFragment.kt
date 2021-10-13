@@ -41,8 +41,10 @@ class HomeFragment : Fragment() {
         (activity as MainActivity).updateUserProfileName(args.userProfile.firstName + " " + args.userProfile.lastName)
 
         viewModel.loadLoginItems().observe(viewLifecycleOwner, { response ->
-            response.body()?.let {
-                adapter.setData(it)
+            response.let {
+                if (it != null) {
+                    adapter.setData(it)
+                }
             }
         })
 

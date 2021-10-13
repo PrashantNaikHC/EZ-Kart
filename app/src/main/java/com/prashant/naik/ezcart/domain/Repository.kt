@@ -10,7 +10,7 @@ interface Repository {
     suspend fun registerUser(userProfile: UserProfile)
     suspend fun loginUser(userId: String, password: String) : UserProfile
 
-    suspend fun loadLoginItems(): Response<ItemsResult>
+    suspend fun loadLoginItems(): List<Item>?
     suspend fun loadOrders(): Response<OrdersResult>
 
     suspend fun addToCart(item: Item)

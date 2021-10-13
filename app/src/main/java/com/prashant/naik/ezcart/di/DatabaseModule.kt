@@ -2,11 +2,14 @@ package com.prashant.naik.ezcart.di
 
 import android.content.Context
 import androidx.room.Room
-import com.prashant.naik.ezcart.data.item.ItemsDao
-import com.prashant.naik.ezcart.data.item.ItemsDatabase
+import com.prashant.naik.ezcart.data.item.CartItemsDao
+import com.prashant.naik.ezcart.data.item.CartItemsDatabase
+import com.prashant.naik.ezcart.data.item.LoginItemDatabase
+import com.prashant.naik.ezcart.data.item.LoginItemsDao
 import com.prashant.naik.ezcart.data.profile.UserProfileDao
 import com.prashant.naik.ezcart.data.profile.UserProfileDatabase
 import com.prashant.naik.ezcart.utils.Constants.Companion.ITEMS_DATABASE
+import com.prashant.naik.ezcart.utils.Constants.Companion.LOGIN_ITEMS_DATABASE
 import com.prashant.naik.ezcart.utils.Constants.Companion.USER_PROFILE_DATABASE
 import dagger.Module
 import dagger.Provides
@@ -29,8 +32,16 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideItemsDatabase(@ApplicationContext context: Context): ItemsDatabase {
-        return Room.databaseBuilder(context, ItemsDatabase::class.java, ITEMS_DATABASE)
+    fun provideItemsDatabase(@ApplicationContext context: Context): CartItemsDatabase {
+        return Room.databaseBuilder(context, CartItemsDatabase::class.java, ITEMS_DATABASE)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideLoginItemsDatabase(@ApplicationContext context: Context): LoginItemDatabase {
+        return Room.databaseBuilder(context, LoginItemDatabase::class.java, LOGIN_ITEMS_DATABASE)
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -41,5 +52,9 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesItemsDao(database: ItemsDatabase): ItemsDao = database.itemsDao()
+    fun providesItemsDao(databaseCartCart: CartItemsDatabase): CartItemsDao = databaseCartCart.cartItemsDao()
+
+    @Singleton
+    @Provides
+    fun providesLoginItemsDao(loginItemDatabase: LoginItemDatabase): LoginItemsDao = loginItemDatabase.loginItemsDao()
 }

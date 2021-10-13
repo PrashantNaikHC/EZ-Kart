@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.prashant.naik.ezcart.data.Item
 
 @Dao
-interface ItemsDao {
+interface CartItemsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addItemToCart(itemName: Item)

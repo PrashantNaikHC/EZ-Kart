@@ -49,10 +49,10 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
         holder.bind(currentRecipe, clickListener)
     }
 
-    fun setData(newData: ItemsResult) {
-        val diffUtil = ItemDiffUtil(itemsList, newData.items)
+    fun setData(newData: List<Item>) {
+        val diffUtil = ItemDiffUtil(itemsList, newData)
         DiffUtil.calculateDiff(diffUtil).dispatchUpdatesTo(this)
-        itemsList = newData.items
+        itemsList = newData
     }
 
     fun setClickListener(clickListner: (Item) -> Unit){
