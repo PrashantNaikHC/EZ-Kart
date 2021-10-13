@@ -62,4 +62,11 @@
     <string name="remove_item_from_cart">Remove item from cart</string>
     <string name="place_order">Place Order</string>
 
+    <!--Main Activity-->
+    <string name="log_out_message">Do you want to logout from application?</string>
+    <string name="logout_yes">yes</string>
+    <string name="logout_no">No</string>
+    <string name="log_out_title">Exit</string>
+    <string name="log_out_success">Logout successful</string>
+
 </resources>
