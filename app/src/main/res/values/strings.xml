@@ -44,6 +44,9 @@
     <string name="feedback_text">Feedback</string>
     <string name="submit_feedback">Submit Feedback</string>
     <string name="product_image">Product image</string>
+    <string name="feedback_text_limit_exceeded">Characters exceed maximum limit of 400</string>
+    <string name="feedback_success">Thanks for your feedback</string>
+    <string name="feedback_update">Kindly provide the rating between 1 to 5</string>
 
     <!--Home Fragment-->
     <string name="dash">-</string>

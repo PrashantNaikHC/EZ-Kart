@@ -2,12 +2,15 @@ package com.prashant.naik.ezcart.di
 
 import android.content.Context
 import androidx.room.Room
+import com.prashant.naik.ezcart.data.feedback.FeedbackDao
+import com.prashant.naik.ezcart.data.feedback.FeedbackDatabase
 import com.prashant.naik.ezcart.data.item.CartItemsDao
 import com.prashant.naik.ezcart.data.item.CartItemsDatabase
 import com.prashant.naik.ezcart.data.item.LoginItemDatabase
 import com.prashant.naik.ezcart.data.item.LoginItemsDao
 import com.prashant.naik.ezcart.data.profile.UserProfileDao
 import com.prashant.naik.ezcart.data.profile.UserProfileDatabase
+import com.prashant.naik.ezcart.utils.Constants.Companion.FEEDBACK_DATABASE
 import com.prashant.naik.ezcart.utils.Constants.Companion.ITEMS_DATABASE
 import com.prashant.naik.ezcart.utils.Constants.Companion.LOGIN_ITEMS_DATABASE
 import com.prashant.naik.ezcart.utils.Constants.Companion.USER_PROFILE_DATABASE
@@ -48,6 +51,14 @@ class DatabaseModule {
 
     @Singleton
     @Provides
+    fun provideFeedbackDatabase(@ApplicationContext context: Context): FeedbackDatabase {
+        return Room.databaseBuilder(context, FeedbackDatabase::class.java, FEEDBACK_DATABASE)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Singleton
+    @Provides
     fun providesUserProfileDao(database: UserProfileDatabase): UserProfileDao = database.userProfileDao()
 
     @Singleton
@@ -57,4 +68,8 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun providesLoginItemsDao(loginItemDatabase: LoginItemDatabase): LoginItemsDao = loginItemDatabase.loginItemsDao()
+
+    @Singleton
+    @Provides
+    fun providesFeedbackDao(feedbackDatabase: FeedbackDatabase): FeedbackDao = feedbackDatabase.feedbackDao()
 }

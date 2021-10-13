@@ -7,6 +7,7 @@ import com.prashant.naik.ezcart.data.OrdersResult
 import com.prashant.naik.ezcart.data.datasource.CachedDataSource
 import com.prashant.naik.ezcart.data.datasource.LocalDataSource
 import com.prashant.naik.ezcart.data.datasource.RemoteDataSource
+import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
 import retrofit2.Response
 import javax.inject.Inject
@@ -44,6 +45,10 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun removeCartItem(itemName: String) {
         return localDataSource.removeCartItem(itemName)
+    }
+
+    override suspend fun addFeedback(feedback: Feedback) {
+        localDataSource.addFeedback(feedback)
     }
 
     private suspend fun loadLoginItemsFromCache(): List<Item> {

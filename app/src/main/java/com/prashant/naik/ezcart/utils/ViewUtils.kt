@@ -49,6 +49,21 @@ fun TextInputLayout.validateInputField(target: String?): Boolean {
     return validationSuccessful
 }
 
+fun TextInputLayout.validateFeedbackField(target: String?): Boolean {
+    var validationSuccessful = false
+    if(target != null) {
+        if (target.isBlank() || target.isEmpty()) {
+            this.error = context.getString(R.string.blank_input)
+        } else if (target.length > 400) {
+            this.error = context.getString(R.string.feedback_text_limit_exceeded)
+        }else {
+            this.isErrorEnabled = false
+            validationSuccessful = true
+        }
+    }
+    return validationSuccessful
+}
+
 fun TextInputLayout.validateSignUpPassword(target: String?): Boolean {
     var validationSuccessful = false
     val numberRegex = Regex("[0-9]+")

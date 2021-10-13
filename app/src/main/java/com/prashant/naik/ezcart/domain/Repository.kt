@@ -1,8 +1,8 @@
 package com.prashant.naik.ezcart.domain
 
 import com.prashant.naik.ezcart.data.Item
-import com.prashant.naik.ezcart.data.ItemsResult
 import com.prashant.naik.ezcart.data.OrdersResult
+import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
 import retrofit2.Response
 
@@ -17,4 +17,6 @@ interface Repository {
 
     suspend fun getCartItems(): List<Item>
     suspend fun removeCartItem(itemName: String)
+
+    suspend fun addFeedback(feedback: Feedback)
 }
