@@ -16,4 +16,5 @@ interface Repository {
     suspend fun addToCart(item: Item)
 
     suspend fun getCartItems(): List<Item>
+    suspend fun removeCartItem(itemName: String)
 }

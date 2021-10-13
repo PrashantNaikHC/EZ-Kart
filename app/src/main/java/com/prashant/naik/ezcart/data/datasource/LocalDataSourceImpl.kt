@@ -25,4 +25,8 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun getCartItems(): List<Item> {
         return itemsDao.getCartItems()
     }
+
+    override suspend fun removeCartItem(itemName: String) {
+        itemsDao.removeItemFromCart(itemName)
+    }
 }

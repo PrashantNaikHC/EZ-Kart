@@ -1,29 +1,40 @@
 package com.prashant.naik.ezcart.ui.cart
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
-import com.prashant.naik.ezcart.domain.usecases.ShowCartUseCase
+import androidx.lifecycle.*
+import com.prashant.naik.ezcart.data.Item
+import com.prashant.naik.ezcart.domain.usecases.CartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CartViewModel @Inject constructor(private val showCartUseCase: ShowCartUseCase) : ViewModel() {
+class CartViewModel @Inject constructor(private val cartUseCase: CartUseCase) : ViewModel() {
 
-    fun getCartItems() = liveData {
-        val cartItems = showCartUseCase.getCartItems()
-        emit(cartItems)
+    private val _cartItemsList = MutableLiveData<MutableList<Item>>()
+    val cartItemsList : LiveData<MutableList<Item>> = _cartItemsList
+
+    fun getCartItems() = viewModelScope.launch {
+        _cartItemsList.value = cartUseCase.getCartItems().toMutableList()
+    }
+
+    fun removeItemFromCart(itemName: String) = viewModelScope.launch {
+        cartUseCase.removeCartItem(itemName)
+        getCartItems()
+    }
+
+    fun getItemTotalPrice(): Int? {
+        return _cartItemsList.value?.map { it.price }?.sum()
     }
 
 }
 
-class CartViewModelFactory @Inject constructor(val showCartUseCase: ShowCartUseCase) :
+class CartViewModelFactory @Inject constructor(val cartUseCase: CartUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
         when {
             isAssignableFrom(CartViewModel::class.java) ->
-                CartViewModel(showCartUseCase)
+                CartViewModel(cartUseCase)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -11,14 +12,61 @@
 
         <TextView
             android:id="@+id/cart_header"
-            tools:text="Orders for"
-            android:layout_margin="@dimen/margin_general"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_general"
+            tools:text="Orders for" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_sm">
+
+            <TextView
+                android:id="@+id/total_dollar_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_general"
+                android:text="@string/dollar"
+                android:textColor="@color/primary_color"
+                android:textSize="@dimen/heading_textsize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/total_cart_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_color"
+                android:textSize="@dimen/heading_textsize"
+                app:layout_constraintStart_toEndOf="@+id/total_dollar_placeholder"
+                app:layout_constraintTop_toTopOf="@id/total_dollar_placeholder"
+                tools:layout_editor_absoluteY="93dp"
+                tools:text="100" />
+
+            <Button
+                android:id="@+id/place_order_button"
+                style="@style/EZButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_order"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </layout>

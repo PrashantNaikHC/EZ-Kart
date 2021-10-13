@@ -38,4 +38,8 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getCartItems(): List<Item> {
         return localDataSource.getCartItems()
     }
+
+    override suspend fun removeCartItem(itemName: String) {
+        return localDataSource.removeCartItem(itemName)
+    }
 }

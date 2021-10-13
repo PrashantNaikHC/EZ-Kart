@@ -10,8 +10,8 @@ import com.prashant.naik.ezcart.utils.ItemDiffUtil
 
 class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 
-    var itemsList = emptyList<Item>()
-    private var clickListener : (Item) -> Unit = {}
+    private var itemsList = mutableListOf<Item>()
+    private var clickListener : (Pair<Item, Int>) -> Unit = {}
 
     class MyViewHolder(
         private val binding: ListCartItemBinding
@@ -26,10 +26,14 @@ class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
             }
         }
 
-        fun bind(item: Item, clickListener: (Item) -> Unit) {
+        fun bind(
+            item: Item,
+            clickListener: (Pair<Item, Int>) -> Unit,
+            position: Int
+        ) {
             binding.item = item
             binding.cartItemRemoveButton.setOnClickListener {
-                clickListener.invoke(item)
+                clickListener.invoke(Pair(item, position))
             }
             binding.executePendingBindings()
         }
@@ -45,16 +49,16 @@ class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = itemsList[position]
-        holder.bind(currentItem, clickListener)
+        holder.bind(currentItem, clickListener, position)
     }
 
-    fun setData(newData: List<Item>) {
+    fun setData(newData: MutableList<Item>) {
         val diffUtil = ItemDiffUtil(itemsList, newData)
         DiffUtil.calculateDiff(diffUtil).dispatchUpdatesTo(this)
         itemsList = newData
     }
 
-    fun setClickListener(clickListener: (Item) -> Unit){
+    fun setClickListener(clickListener: (Pair<Item, Int>) -> Unit){
         this.clickListener = clickListener
     }
 }
