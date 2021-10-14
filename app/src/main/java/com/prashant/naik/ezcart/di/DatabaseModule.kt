@@ -4,15 +4,13 @@ import android.content.Context
 import androidx.room.Room
 import com.prashant.naik.ezcart.data.feedback.FeedbackDao
 import com.prashant.naik.ezcart.data.feedback.FeedbackDatabase
-import com.prashant.naik.ezcart.data.item.CartItemsDao
-import com.prashant.naik.ezcart.data.item.CartItemsDatabase
-import com.prashant.naik.ezcart.data.item.LoginItemDatabase
-import com.prashant.naik.ezcart.data.item.LoginItemsDao
+import com.prashant.naik.ezcart.data.item.*
 import com.prashant.naik.ezcart.data.profile.UserProfileDao
 import com.prashant.naik.ezcart.data.profile.UserProfileDatabase
 import com.prashant.naik.ezcart.utils.Constants.Companion.FEEDBACK_DATABASE
 import com.prashant.naik.ezcart.utils.Constants.Companion.ITEMS_DATABASE
 import com.prashant.naik.ezcart.utils.Constants.Companion.LOGIN_ITEMS_DATABASE
+import com.prashant.naik.ezcart.utils.Constants.Companion.ORDER_ITEMS_DATABASE
 import com.prashant.naik.ezcart.utils.Constants.Companion.USER_PROFILE_DATABASE
 import dagger.Module
 import dagger.Provides
@@ -29,6 +27,14 @@ class DatabaseModule {
     @Provides
     fun provideUserProfileDatabase(@ApplicationContext context: Context): UserProfileDatabase {
         return Room.databaseBuilder(context, UserProfileDatabase::class.java, USER_PROFILE_DATABASE)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideOrdersDatabase(@ApplicationContext context: Context): OrderDatabase {
+        return Room.databaseBuilder(context, OrderDatabase::class.java, ORDER_ITEMS_DATABASE)
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -60,6 +66,10 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun providesUserProfileDao(database: UserProfileDatabase): UserProfileDao = database.userProfileDao()
+
+    @Singleton
+    @Provides
+    fun providesOrderItemsDao(database: OrderDatabase): OrdersDao = database.orderItemsDao()
 
     @Singleton
     @Provides

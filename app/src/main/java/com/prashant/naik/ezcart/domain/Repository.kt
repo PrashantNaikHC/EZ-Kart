@@ -1,6 +1,7 @@
 package com.prashant.naik.ezcart.domain
 
 import com.prashant.naik.ezcart.data.Item
+import com.prashant.naik.ezcart.data.Order
 import com.prashant.naik.ezcart.data.OrdersResult
 import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
@@ -11,7 +12,7 @@ interface Repository {
     suspend fun loginUser(userId: String, password: String) : UserProfile
 
     suspend fun loadLoginItems(): List<Item>?
-    suspend fun loadOrders(): Response<OrdersResult>
+    suspend fun loadOrders(): List<Order>
 
     suspend fun addToCart(item: Item)
 

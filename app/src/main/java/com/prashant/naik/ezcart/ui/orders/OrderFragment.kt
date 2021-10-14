@@ -34,12 +34,10 @@ class OrderFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(OrdersViewModel::class.java)
         setupAdapter()
 
-        viewModel.loadOrders().observe(viewLifecycleOwner, { response ->
-            response.body()?.let {
-                val latestOrder = OrdersAdapter.getLatestOrder(it.orders)
-                binding.ordersHeader.setOrderHeader(latestOrder)
-                adapter.setData(latestOrder.data, latestOrder.orderDate)
-            }
+        viewModel.loadOrders().observe(viewLifecycleOwner, { orders ->
+            val latestOrder = OrdersAdapter.getLatestOrder(orders)
+            binding.ordersHeader.setOrderHeader(latestOrder)
+            adapter.setData(latestOrder.data, latestOrder.orderDate)
         })
 
         // Inflate the layout for this fragment

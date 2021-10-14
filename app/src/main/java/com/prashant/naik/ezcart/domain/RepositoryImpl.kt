@@ -2,14 +2,12 @@ package com.prashant.naik.ezcart.domain
 
 import android.util.Log
 import com.prashant.naik.ezcart.data.Item
-import com.prashant.naik.ezcart.data.ItemsResult
-import com.prashant.naik.ezcart.data.OrdersResult
+import com.prashant.naik.ezcart.data.Order
 import com.prashant.naik.ezcart.data.datasource.CachedDataSource
 import com.prashant.naik.ezcart.data.datasource.LocalDataSource
 import com.prashant.naik.ezcart.data.datasource.RemoteDataSource
 import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
-import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -31,8 +29,8 @@ class RepositoryImpl @Inject constructor(
         return loadLoginItemsFromCache()
     }
 
-    override suspend fun loadOrders(): Response<OrdersResult> {
-        return remoteDataSource.loadOrders()
+    override suspend fun loadOrders(): List<Order> {
+        return loadOrdersFromCache()
     }
 
     override suspend fun addToCart(item: Item) {
@@ -68,6 +66,23 @@ class RepositoryImpl @Inject constructor(
         return itemsList
     }
 
+    private suspend fun loadOrdersFromCache(): List<Order> {
+        lateinit var ordersList: List<Order>
+        try {
+            ordersList = cachedDataSource.loadOrders()
+        } catch (exception: Exception) {
+            Log.e(TAG, exception.message.toString())
+        }
+        if (ordersList.isNotEmpty()) {
+            Log.d(TAG, "loadOrdersFromCache: ")
+            return ordersList
+        } else {
+            ordersList = loadOrdersFromDatabase()
+            cachedDataSource.saveOrders(ordersList)
+        }
+        return ordersList
+    }
+
     private suspend fun loadLoginItemsFromDatabase(): List<Item> {
         lateinit var itemsList: List<Item>
         try {
@@ -85,6 +100,23 @@ class RepositoryImpl @Inject constructor(
         return itemsList
     }
 
+    private suspend fun loadOrdersFromDatabase(): List<Order> {
+        lateinit var ordersList: List<Order>
+        try {
+            ordersList = localDataSource.loadOrders()
+        } catch (exception: Exception) {
+            Log.i(TAG, exception.message.toString())
+        }
+        if (ordersList.isNotEmpty()) {
+            Log.d(TAG, "loadLoginItemsFromDatabase: ")
+            return ordersList
+        } else {
+            ordersList = loadOrdersFromNetwork()
+            localDataSource.saveOrdersToDatabase(ordersList)
+        }
+        return ordersList
+    }
+
     private suspend fun loadLoginItemsFromNetwork(): List<Item> {
         lateinit var itemsList: List<Item>
         try {
@@ -98,6 +130,21 @@ class RepositoryImpl @Inject constructor(
             Log.i(TAG, exception.message.toString())
         }
         return itemsList
+    }
+
+    private suspend fun loadOrdersFromNetwork(): List<Order> {
+        lateinit var ordersList: List<Order>
+        try {
+            val response = remoteDataSource.loadOrders()
+            Log.d(TAG, "loadOrdersFromNetwork: ")
+            val body = response.body()
+            if (body != null) {
+                ordersList = body.orders
+            }
+        } catch (exception: Exception) {
+            Log.i(TAG, exception.message.toString())
+        }
+        return ordersList
     }
 
     /*override suspend fun getUpdatedMovieList(): List<Item>? {
