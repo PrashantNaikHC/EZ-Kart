@@ -1,5 +1,6 @@
 package com.prashant.naik.ezcart.ui.orders
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.OrdersAdapter
@@ -46,6 +48,10 @@ class OrderFragment : Fragment() {
 
     private fun setupAdapter() {
         binding.ordersRecyclerView.adapter = adapter
-        binding.ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.ordersRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        } else {
+            binding.ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 }
