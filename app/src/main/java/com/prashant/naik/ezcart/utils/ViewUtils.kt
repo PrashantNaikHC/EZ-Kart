@@ -116,10 +116,10 @@ fun TextView.setOrderHeader(latestOrder: Order) {
     this.text = context.getString(R.string.orders_placeholder_pretext) + " " + month
 }
 
-fun loadProfilePictureFromInternalStorage(context: Context, userId: String): Bitmap {
+fun loadProfilePictureFromInternalStorage(context: Context, userId: String): Bitmap? {
     val cw = ContextWrapper(context)
     val directory = cw.getDir(Constants.IMAGE_DIRECTORY, Context.MODE_PRIVATE)
-    lateinit var bitmap: Bitmap
+    var bitmap: Bitmap? = null
     try {
         val f = File(directory, "$userId.jpg")
         bitmap = BitmapFactory.decodeStream(FileInputStream(f))

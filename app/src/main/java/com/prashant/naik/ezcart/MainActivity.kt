@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var userProfileTextView: TextView
     private lateinit var userProfileImageView: ImageView
-    private lateinit var builder: AlertDialog.Builder
     private lateinit var userProfile: UserProfile
     private val REQUEST_IMAGE_CAPTURE = 111
     private val PICK_IMAGE = 122
@@ -60,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         userProfileTextView = navView.getHeaderView(0).findViewById(R.id.profile_text)
         userProfileImageView = navView.getHeaderView(0).findViewById(R.id.profile_image)
         userProfileImageView.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
             builder.apply {
                 setTitle(getString(R.string.set_profile_image_title))
                     .setItems(
@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity() {
             val alertDialog: AlertDialog = builder.create()
             alertDialog.show()
         }
-        builder = AlertDialog.Builder(this)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -97,6 +96,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_logout -> {
                     this@MainActivity.drawerLayout.closeDrawer(GravityCompat.START)
+                    val builder = AlertDialog.Builder(this)
                     builder.apply {
                         setTitle(getString(R.string.log_out_title))
                         setMessage(getString(R.string.log_out_message))
@@ -175,14 +175,17 @@ class MainActivity : AppCompatActivity() {
             try {
                 navController.navigate(HomeFragmentDirections.actionHomeFragmentToCartFragment())
             } catch (e: Exception) {
-                Log.e("MainActivity", "Navigation from this destination is not currently linked to the Cart fragment" )
+                Log.e(
+                    "MainActivity",
+                    "Navigation from this destination is not currently linked to the Cart fragment"
+                )
             }
         }
         return super.onCreateOptionsMenu(menu)
     }
 
     fun setNotificationCount(count: Int) {
-        if(this::notificationText.isInitialized){
+        if (this::notificationText.isInitialized) {
             notificationCount = count.toString()
             invalidateOptionsMenu()
         }
@@ -195,11 +198,14 @@ class MainActivity : AppCompatActivity() {
             userProfileImageView.setImageBitmap(imageBitmap)
             saveToInternalStorage(imageBitmap, userProfile.userId, this)
             Glide.with(this)
-                .load(loadProfilePictureFromInternalStorage(this, userProfile.userId))
+                .load(
+                    loadProfilePictureFromInternalStorage(this, userProfile.userId)
+                        ?: resources.getDrawable(R.drawable.profile_placeholder)
+                )
                 .circleCrop()
                 .into(userProfileImageView)
         } else if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            val imageBitmap =  MediaStore.Images.Media.getBitmap(this.contentResolver, data?.data)
+            val imageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, data?.data)
             userProfileImageView.setImageBitmap(imageBitmap)
             saveToInternalStorage(imageBitmap, userProfile.userId, this)
             Glide.with(this)
@@ -213,7 +219,10 @@ class MainActivity : AppCompatActivity() {
         this.userProfile = userProfile
         userProfileTextView.text = userProfile.getNormalisedName()
         Glide.with(this)
-            .load(loadProfilePictureFromInternalStorage(this, userProfile.userId))
+            .load(
+                loadProfilePictureFromInternalStorage(this, userProfile.userId)
+                    ?: resources.getDrawable(R.drawable.profile_placeholder)
+            )
             .circleCrop()
             .into(userProfileImageView)
     }
@@ -224,11 +233,16 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
         } catch (e: ActivityNotFoundException) {
             e.printStackTrace()
-            Toast.makeText(this, getString(R.string.intent_failure_message), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.intent_failure_message), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
-    private fun saveToInternalStorage(bitmapImage: Bitmap, userId: String, context: Context): String? {
+    private fun saveToInternalStorage(
+        bitmapImage: Bitmap,
+        userId: String,
+        context: Context
+    ): String? {
         val contextWrapper = ContextWrapper(context)
         val directory = contextWrapper.getDir(IMAGE_DIRECTORY, Context.MODE_PRIVATE)
         val filePath = File(directory, "$userId.jpg")
