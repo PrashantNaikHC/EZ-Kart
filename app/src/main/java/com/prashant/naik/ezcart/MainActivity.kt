@@ -4,6 +4,7 @@ import android.content.*
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController: NavController = navHostFragment.navController
+        navController = navHostFragment.navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -169,6 +170,13 @@ class MainActivity : AppCompatActivity() {
         } else {
             notificationText.visibility = View.VISIBLE
             notificationText.text = notificationCount
+        }
+        count.setOnClickListener {
+            try {
+                navController.navigate(HomeFragmentDirections.actionHomeFragmentToCartFragment())
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Navigation from this destination is not currently linked to the Cart fragment" )
+            }
         }
         return super.onCreateOptionsMenu(menu)
     }
