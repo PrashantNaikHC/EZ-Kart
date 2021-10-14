@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var builder: AlertDialog.Builder
     private lateinit var userProfile: UserProfile
     private val REQUEST_IMAGE_CAPTURE = 111
+    private val PICK_IMAGE = 122
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +55,14 @@ class MainActivity : AppCompatActivity() {
             builder.apply {
                 setTitle(getString(R.string.set_profile_image_title))
                     .setItems(
-                        arrayOf(getString(R.string.source_camera), getString(R.string.source_gallary)),
+                        arrayOf(
+                            getString(R.string.source_camera),
+                            getString(R.string.source_gallary)
+                        ),
                         DialogInterface.OnClickListener { dialog, which ->
                             when (which) {
                                 0 -> dispatchTakePictureIntent()
-                                1 -> {
-                                    // todo : open gallery
-                                }
+                                1 -> dispatchPicturePickerIntent()
                             }
                         })
             }
@@ -131,6 +133,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun dispatchPicturePickerIntent() {
+        val photoPickerIntent = Intent(Intent.ACTION_PICK)
+        photoPickerIntent.type = "image/*"
+        startActivityForResult(photoPickerIntent, PICK_IMAGE)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -152,6 +160,14 @@ class MainActivity : AppCompatActivity() {
             saveToInternalStorage(imageBitmap, userProfile.userId, this)
             Glide.with(this)
                 .load(loadProfilePictureFromInternalStorage(this, userProfile.userId))
+                .circleCrop()
+                .into(userProfileImageView)
+        } else if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
+            val imageBitmap =  MediaStore.Images.Media.getBitmap(this.contentResolver, data?.data)
+            userProfileImageView.setImageBitmap(imageBitmap)
+            saveToInternalStorage(imageBitmap, userProfile.userId, this)
+            Glide.with(this)
+                .load(data?.data)
                 .circleCrop()
                 .into(userProfileImageView)
         }
