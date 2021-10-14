@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.prashant.naik.ezcart.ui.home.HomeFragment"
-        android:label="EZ Cart"
+        android:label=""
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"

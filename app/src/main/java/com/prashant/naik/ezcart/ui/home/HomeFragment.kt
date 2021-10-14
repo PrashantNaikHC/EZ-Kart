@@ -2,6 +2,7 @@ package com.prashant.naik.ezcart.ui.home
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,7 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
         (activity as MainActivity).updateUserProfileDetails(args.userProfile)
+        (activity as MainActivity).toolbar.background = resources.getDrawable(R.drawable.ic_logo_header)
 
         viewModel.loadLoginItems().observe(viewLifecycleOwner, { response ->
             response.let {
@@ -68,5 +70,10 @@ class HomeFragment : Fragment() {
                 )
             )
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity).toolbar.background = null
     }
 }
