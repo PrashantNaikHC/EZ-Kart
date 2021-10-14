@@ -1,5 +1,6 @@
 package com.prashant.naik.ezcart.ui.cart
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.CartItemAdapter
@@ -65,7 +67,11 @@ class CartFragment : Fragment() {
 
     private fun setupAdapter() {
         binding.cartRecyclerView.adapter = adapter
-        binding.cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.cartRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        } else {
+            binding.cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        }
         adapter.setClickListener { itemPair ->
             viewModel.removeItemFromCart(itemPair.first.itemName)
             Toast.makeText(
