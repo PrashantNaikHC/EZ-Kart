@@ -11,8 +11,14 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val loginUserUseCase: LoginUserUseCase) : ViewModel() {
 
     fun loginUser(userId: String, password: String) = liveData {
-        val userProfile = loginUserUseCase.loginUser(userId, password)
-        emit(userProfile)
+        val userProfile = loginUserUseCase.loginUser(userId)
+        if(userProfile == null){
+            emit(Pair(LoginState.USER_NOT_PRESENT, null))
+        } else if(userProfile.password == password) {
+            emit(Pair(LoginState.SUCCESS, userProfile))
+        } else {
+            emit(Pair(LoginState.INCORRECT_PASSWORD, null))
+        }
     }
 
 }

@@ -24,8 +24,8 @@ class LocalDataSourceImpl @Inject constructor(
         userProfileDao.addUserProfile(userProfile)
     }
 
-    override suspend fun loginUserProfile(userId: String, password: String): UserProfile {
-        return userProfileDao.loginUser(userId, password)
+    override suspend fun loginUserProfile(userId: String): UserProfile {
+        return userProfileDao.loginUser(userId)
     }
 
     override suspend fun addToCart(item: Item) {

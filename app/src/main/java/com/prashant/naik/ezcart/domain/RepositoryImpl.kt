@@ -21,8 +21,8 @@ class RepositoryImpl @Inject constructor(
         localDataSource.registerProfile(userProfile)
     }
 
-    override suspend fun loginUser(userId: String, password: String): UserProfile {
-        return localDataSource.loginUserProfile(userId, password)
+    override suspend fun loginUser(userId: String): UserProfile {
+        return localDataSource.loginUserProfile(userId)
     }
 
     override suspend fun loadLoginItems(): List<Item> {

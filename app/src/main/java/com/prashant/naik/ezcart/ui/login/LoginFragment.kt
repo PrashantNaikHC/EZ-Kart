@@ -59,7 +59,7 @@ class LoginFragment : DisposableFragment() {
 
         initProgressDialog()
         updateLoginButton()
-        binding.loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListener { it ->
             it.hideKeyboard()
             progressDialog.show()
             Handler(Looper.getMainLooper()).postDelayed({
@@ -67,9 +67,11 @@ class LoginFragment : DisposableFragment() {
                 viewModel.loginUser(
                     binding.usernameInputEditText.editText?.text.toString(),
                     binding.passwordInputEditText.editText?.text.toString()
-                ).observe(viewLifecycleOwner, { userProfile ->
-                    if (binding.passwordInputEditText.validateSignInSuccess(userProfile != null)) {
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(userProfile))
+                ).observe(viewLifecycleOwner, { userProfilePair ->
+                    if (binding.passwordInputEditText.validateSignInSuccess(userProfilePair.first, requireActivity())) {
+                        userProfilePair.second?.let { userProfile ->
+                            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(userProfile))
+                        }
                     }
                 })
             }, Constants.LOGIN_DELAY)

@@ -9,7 +9,7 @@ import retrofit2.Response
 
 interface Repository {
     suspend fun registerUser(userProfile: UserProfile)
-    suspend fun loginUser(userId: String, password: String) : UserProfile
+    suspend fun loginUser(userId: String) : UserProfile
 
     suspend fun loadLoginItems(): List<Item>?
     suspend fun loadOrders(): List<Order>
