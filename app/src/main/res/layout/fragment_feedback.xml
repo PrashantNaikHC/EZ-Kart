@@ -28,6 +28,7 @@
             android:layout_marginStart="@dimen/margin_general"
             android:layout_marginTop="@dimen/margin_sm"
             android:numStars="5"
+            android:stepSize="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 

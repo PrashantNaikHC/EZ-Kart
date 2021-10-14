@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.databinding.FragmentFeedbackBinding
 import com.prashant.naik.ezcart.utils.DisposableFragment
 import com.prashant.naik.ezcart.utils.createTextInputLayoutObservable
+import com.prashant.naik.ezcart.utils.hideKeyboard
 import com.prashant.naik.ezcart.utils.validateFeedbackField
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observer
@@ -60,6 +62,8 @@ class FeedbackFragment : DisposableFragment() {
                 rating = binding.ratingBar.rating.toInt()
             ))
             Toast.makeText(requireActivity(), getString(R.string.feedback_success), Toast.LENGTH_SHORT).show()
+            binding.root.hideKeyboard()
+            findNavController().popBackStack()
         }
 
         // Inflate the layout for this fragment
