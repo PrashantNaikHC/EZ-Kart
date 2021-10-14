@@ -12,12 +12,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.PagerAdapter
 import com.prashant.naik.ezcart.MainActivity
 import com.prashant.naik.ezcart.R
+import com.prashant.naik.ezcart.adapter.BannerAdapter
 import com.prashant.naik.ezcart.adapter.ItemsAdapter
 import com.prashant.naik.ezcart.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -55,14 +58,25 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).setNotificationCount(it)
         })
 
+        val adapter: PagerAdapter = BannerAdapter(
+            bannerImages = listOf(
+                resources.getDrawable(R.drawable.banner_01),
+                resources.getDrawable(R.drawable.banner_02),
+                resources.getDrawable(R.drawable.banner_03),
+                resources.getDrawable(R.drawable.banner_04),
+                resources.getDrawable(R.drawable.banner_05)),
+            context = requireActivity())
+        binding.viewPager.adapter = adapter
+        binding.tabLayout.setupWithViewPager(binding.viewPager, true)
+
         return binding.root
     }
 
     private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
         if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.imageView.visibility = View.GONE
-            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
+            binding.viewPager.visibility = View.GONE
+            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         } else {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         }

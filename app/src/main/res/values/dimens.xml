@@ -8,4 +8,7 @@
     <dimen name="banner_height">200dp</dimen>
     <dimen name="landscape_textinput_width">200dp</dimen>
     <dimen name="notification_font_size">12sp</dimen>
+    <dimen name="selected_dot_thickness">4dp</dimen>
+    <dimen name="default_dot_thickness">2dp</dimen>
+    <dimen name="default_dot_inner_radius">2dp</dimen>
 </resources>
