@@ -2,7 +2,6 @@ package com.prashant.naik.ezcart.ui.home
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +49,10 @@ class HomeFragment : Fragment() {
                     adapter.setData(it)
                 }
             }
+        })
+
+        viewModel.getItemsOnCart().observe(viewLifecycleOwner, {
+            (activity as MainActivity).setNotificationCount(it)
         })
 
         return binding.root

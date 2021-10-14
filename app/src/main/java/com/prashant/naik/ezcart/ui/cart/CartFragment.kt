@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.prashant.naik.ezcart.MainActivity
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.CartItemAdapter
 import com.prashant.naik.ezcart.databinding.FragmentCartBinding
@@ -47,6 +48,7 @@ class CartFragment : Fragment() {
 
         viewModel.cartItemsList.observe(viewLifecycleOwner, { items ->
             adapter.setData(items.toMutableList())
+            (activity as MainActivity).setNotificationCount(items.count())
             updateTotals()
         })
 

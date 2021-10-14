@@ -4,6 +4,9 @@ import android.content.*
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -41,6 +44,9 @@ class MainActivity : AppCompatActivity() {
     private val REQUEST_IMAGE_CAPTURE = 111
     private val PICK_IMAGE = 122
     lateinit var toolbar: Toolbar
+    private lateinit var notificationText: TextView
+    private var notificationCount: String = "0"
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,7 +147,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
+        navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
@@ -150,6 +156,27 @@ class MainActivity : AppCompatActivity() {
             this.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        val count: View = menu.findItem(R.id.badge).actionView
+        notificationText = count.findViewById(R.id.cart_notification) as TextView
+        if (Integer.parseInt(notificationCount) == 0) {
+            notificationText.visibility = View.GONE
+        } else {
+            notificationText.visibility = View.VISIBLE
+            notificationText.text = notificationCount
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    fun setNotificationCount(count: Int) {
+        if(this::notificationText.isInitialized){
+            notificationCount = count.toString()
+            invalidateOptionsMenu()
         }
     }
 

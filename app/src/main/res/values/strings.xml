@@ -75,5 +75,6 @@
     <string name="source_camera">Camera</string>
     <string name="source_gallary">Gallary</string>
     <string name="intent_failure_message">Something went wrong, Please try again</string>
+    <string name="notification_item">notification item</string>
 
 </resources>

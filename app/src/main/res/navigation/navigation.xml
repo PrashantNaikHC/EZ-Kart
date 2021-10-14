@@ -39,6 +39,9 @@
         <argument
             android:name="userProfile"
             app:argType="com.prashant.naik.ezcart.data.profile.UserProfile" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
 
     <fragment

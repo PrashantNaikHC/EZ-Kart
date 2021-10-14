@@ -7,4 +7,5 @@
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="banner_height">200dp</dimen>
     <dimen name="landscape_textinput_width">200dp</dimen>
+    <dimen name="notification_font_size">12sp</dimen>
 </resources>

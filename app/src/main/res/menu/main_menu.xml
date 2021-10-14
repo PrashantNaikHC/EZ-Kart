@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/badge"
+        app:actionLayout="@layout/badge_layout"
+        android:icon="@drawable/badge_circle"
+        android:title="@string/menu_view_cart"
+        app:showAsAction="always"/>
+</menu>
