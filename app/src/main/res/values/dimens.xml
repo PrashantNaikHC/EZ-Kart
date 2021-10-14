@@ -2,7 +2,9 @@
     <dimen name="margin_general">16dp</dimen>
     <dimen name="margin_xl">48dp</dimen>
     <dimen name="heading_textsize">20sp</dimen>
+    <dimen name="label_textsize">18sp</dimen>
     <dimen name="margin_sm">8dp</dimen>
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="banner_height">200dp</dimen>
+    <dimen name="landscape_textinput_width">200dp</dimen>
 </resources>

@@ -24,60 +24,59 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/usernameInputEditText"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/landscape_textinput_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_general"
             android:background="@android:color/transparent"
             app:boxBackgroundColor="@android:color/transparent"
-            app:layout_constraintBottom_toTopOf="@id/passwordInputEditText"
-            app:layout_constraintEnd_toEndOf="@+id/loginLogo"
-            app:layout_constraintStart_toStartOf="@+id/loginLogo"
+            app:layout_constraintEnd_toStartOf="@+id/passwordInputEditText"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginLogo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/user_id"
+                android:inputType="textEmailAddress"
                 android:paddingStart="@dimen/margin_sm"
                 android:paddingEnd="@dimen/margin_sm"
-                android:inputType="textEmailAddress"
                 android:textSize="@dimen/label_textsize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordInputEditText"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/landscape_textinput_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_general"
             android:background="@android:color/transparent"
             app:boxBackgroundColor="@android:color/transparent"
             app:layout_constraintBottom_toTopOf="@id/loginButton"
-            app:layout_constraintEnd_toEndOf="@+id/usernameInputEditText"
-            app:layout_constraintStart_toStartOf="@+id/usernameInputEditText"
-            app:layout_constraintTop_toBottomOf="@+id/usernameInputEditText">
+            app:layout_constraintStart_toEndOf="@id/usernameInputEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginLogo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
+                android:inputType="textPassword"
                 android:paddingStart="@dimen/margin_sm"
                 android:paddingEnd="@dimen/margin_sm"
-                android:inputType="textPassword"
                 android:textSize="@dimen/label_textsize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/loginButton"
+            style="@style/EZButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_xl"
-            style="@style/EZButton"
             android:text="@string/login"
             app:layout_constraintBottom_toTopOf="@id/signUpTextView"
-            app:layout_constraintEnd_toEndOf="@+id/passwordInputEditText"
-            app:layout_constraintStart_toStartOf="@+id/passwordInputEditText"
+            app:layout_constraintEnd_toEndOf="@+id/loginLogo"
+            app:layout_constraintStart_toStartOf="@+id/loginLogo"
             app:layout_constraintTop_toBottomOf="@+id/passwordInputEditText" />
 
         <TextView
@@ -85,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_general"
+            android:layout_marginBottom="@dimen/margin_general"
             android:text="@string/signup"
             android:textColor="@color/primary_color"
             app:layout_constraintBottom_toBottomOf="parent"
