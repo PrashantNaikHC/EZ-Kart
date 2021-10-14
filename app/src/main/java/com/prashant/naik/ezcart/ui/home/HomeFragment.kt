@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
-        (activity as MainActivity).updateUserProfileName(args.userProfile.firstName + " " + args.userProfile.lastName)
+        (activity as MainActivity).updateUserProfileDetails(args.userProfile)
 
         viewModel.loadLoginItems().observe(viewLifecycleOwner, { response ->
             response.let {

@@ -2,6 +2,9 @@ package com.prashant.naik.ezcart.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.ContextWrapper
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -9,6 +12,9 @@ import android.widget.TextView
 import com.google.android.material.textfield.TextInputLayout
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.data.Order
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -109,4 +115,15 @@ fun TextView.setOrderHeader(latestOrder: Order) {
     this.text = context.getString(R.string.orders_placeholder_pretext) + " " + month
 }
 
-
+fun loadProfilePictureFromInternalStorage(context: Context, userId: String): Bitmap {
+    val cw = ContextWrapper(context)
+    val directory = cw.getDir(Constants.IMAGE_DIRECTORY, Context.MODE_PRIVATE)
+    lateinit var bitmap: Bitmap
+    try {
+        val f = File(directory, "$userId.jpg")
+        bitmap = BitmapFactory.decodeStream(FileInputStream(f))
+    } catch (e: FileNotFoundException) {
+        e.printStackTrace()
+    }
+    return bitmap
+}

@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/nav_drawer_profile_content_description"
         android:layout_marginTop="@dimen/margin_xl"
+        android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

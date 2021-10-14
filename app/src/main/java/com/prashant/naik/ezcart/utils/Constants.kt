@@ -8,5 +8,6 @@ class Constants {
         const val LOGIN_ITEMS_DATABASE = "login_items"
         const val FEEDBACK_DATABASE = "login_items"
         const val BASE_URL = "https://demo9990262.mockable.io/login/"
+        const val IMAGE_DIRECTORY = "imageDir"
     }
 }

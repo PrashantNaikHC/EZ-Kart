@@ -71,5 +71,9 @@
     <string name="logout_no">No</string>
     <string name="log_out_title">Exit</string>
     <string name="log_out_success">Logout successful</string>
+    <string name="set_profile_image_title">Set Profile picture</string>
+    <string name="source_camera">Camera</string>
+    <string name="source_gallary">Gallary</string>
+    <string name="intent_failure_message">Something went wrong, Please try again</string>
 
 </resources>

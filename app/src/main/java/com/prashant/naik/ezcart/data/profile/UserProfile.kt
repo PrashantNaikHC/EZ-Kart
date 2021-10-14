@@ -15,4 +15,9 @@ data class UserProfile (
     val lastName: String,
     val password: String,
     val phone: String
-) : Parcelable
+) : Parcelable {
+
+    fun getNormalisedName(): String {
+        return "$firstName $lastName"
+    }
+}

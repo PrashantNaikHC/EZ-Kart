@@ -1,6 +1,10 @@
 package com.prashant.naik.ezcart
 
+import android.content.*
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,9 +19,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
+import com.prashant.naik.ezcart.data.profile.UserProfile
 import com.prashant.naik.ezcart.ui.home.HomeFragmentDirections
+import com.prashant.naik.ezcart.utils.Constants.Companion.IMAGE_DIRECTORY
+import com.prashant.naik.ezcart.utils.loadProfilePictureFromInternalStorage
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.*
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -25,7 +35,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var userProfileTextView: TextView
+    private lateinit var userProfileImageView: ImageView
     private lateinit var builder: AlertDialog.Builder
+    private lateinit var userProfile: UserProfile
+    private val REQUEST_IMAGE_CAPTURE = 111
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +49,24 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         userProfileTextView = navView.getHeaderView(0).findViewById(R.id.profile_text)
+        userProfileImageView = navView.getHeaderView(0).findViewById(R.id.profile_image)
+        userProfileImageView.setOnClickListener {
+            builder.apply {
+                setTitle(getString(R.string.set_profile_image_title))
+                    .setItems(
+                        arrayOf(getString(R.string.source_camera), getString(R.string.source_gallary)),
+                        DialogInterface.OnClickListener { dialog, which ->
+                            when (which) {
+                                0 -> dispatchTakePictureIntent()
+                                1 -> {
+                                    // todo : open gallery
+                                }
+                            }
+                        })
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
+        }
         builder = AlertDialog.Builder(this)
 
         val navHostFragment =
@@ -113,7 +144,56 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateUserProfileName(name: String) {
-        userProfileTextView.text = name
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            userProfileImageView.setImageBitmap(imageBitmap)
+            saveToInternalStorage(imageBitmap, userProfile.userId, this)
+            Glide.with(this)
+                .load(loadProfilePictureFromInternalStorage(this, userProfile.userId))
+                .circleCrop()
+                .into(userProfileImageView)
+        }
+    }
+
+    fun updateUserProfileDetails(userProfile: UserProfile) {
+        this.userProfile = userProfile
+        userProfileTextView.text = userProfile.getNormalisedName()
+        Glide.with(this)
+            .load(loadProfilePictureFromInternalStorage(this, userProfile.userId))
+            .circleCrop()
+            .into(userProfileImageView)
+    }
+
+    private fun dispatchTakePictureIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        } catch (e: ActivityNotFoundException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.intent_failure_message), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveToInternalStorage(bitmapImage: Bitmap, userId: String, context: Context): String? {
+        val contextWrapper = ContextWrapper(context)
+        val directory = contextWrapper.getDir(IMAGE_DIRECTORY, Context.MODE_PRIVATE)
+        val filePath = File(directory, "$userId.jpg")
+        var fileOutputStream: FileOutputStream? = null
+        try {
+            fileOutputStream = FileOutputStream(filePath)
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            try {
+                fileOutputStream?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return directory.absolutePath
     }
 }
