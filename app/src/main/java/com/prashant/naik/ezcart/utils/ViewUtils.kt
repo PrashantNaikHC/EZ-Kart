@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.google.android.material.textfield.TextInputLayout
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.data.Order
+import com.prashant.naik.ezcart.utils.Constants.Companion.FEEDBACK_TEXT_LIMIT
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -60,7 +61,7 @@ fun TextInputLayout.validateFeedbackField(target: String?): Boolean {
     if(target != null) {
         if (target.isBlank() || target.isEmpty()) {
             this.error = context.getString(R.string.blank_input)
-        } else if (target.length > 400) {
+        } else if (target.length > FEEDBACK_TEXT_LIMIT) {
             this.error = context.getString(R.string.feedback_text_limit_exceeded)
         }else {
             this.isErrorEnabled = false

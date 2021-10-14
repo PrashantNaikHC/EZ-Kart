@@ -10,5 +10,6 @@ class Constants {
         const val FEEDBACK_DATABASE = "login_items"
         const val BASE_URL = "https://demo9990262.mockable.io/login/"
         const val IMAGE_DIRECTORY = "imageDir"
+        const val FEEDBACK_TEXT_LIMIT = 500
     }
 }
