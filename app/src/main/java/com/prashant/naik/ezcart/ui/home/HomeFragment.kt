@@ -1,5 +1,6 @@
 package com.prashant.naik.ezcart.ui.home
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prashant.naik.ezcart.MainActivity
 import com.prashant.naik.ezcart.R
@@ -53,7 +55,12 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.imageView.visibility = View.GONE
+            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
+        } else {
+            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        }
         adapter.setClickListener { item ->
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
