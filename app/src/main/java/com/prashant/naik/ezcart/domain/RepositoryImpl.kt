@@ -49,6 +49,12 @@ class RepositoryImpl @Inject constructor(
         localDataSource.addFeedback(feedback)
     }
 
+    override suspend fun clearUserData() {
+        localDataSource.clearUserData()
+        cachedDataSource.clearUserData()
+        Log.d(TAG, "clearUserData: ")
+    }
+
     private suspend fun loadLoginItemsFromCache(): List<Item> {
         lateinit var itemsList: List<Item>
         try {

@@ -23,4 +23,9 @@ class CachedDataSourceImpl @Inject constructor(): CachedDataSource {
     override fun loadOrders(): List<Order> {
         return this.orders
     }
+
+    override fun clearUserData() {
+        loginItems = listOf()
+        orders = listOf()
+    }
 }

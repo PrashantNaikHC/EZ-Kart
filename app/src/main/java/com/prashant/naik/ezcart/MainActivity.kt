@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -26,6 +27,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.prashant.naik.ezcart.data.profile.UserProfile
+import com.prashant.naik.ezcart.ui.home.HomeFragment
 import com.prashant.naik.ezcart.ui.home.HomeFragmentDirections
 import com.prashant.naik.ezcart.utils.Constants.Companion.IMAGE_DIRECTORY
 import com.prashant.naik.ezcart.utils.loadProfilePictureFromInternalStorage
@@ -103,12 +105,16 @@ class MainActivity : AppCompatActivity() {
                         setPositiveButton(
                             R.string.logout_yes
                         ) { _, _ ->
-                            Toast.makeText(
-                                this@MainActivity,
-                                getString(R.string.log_out_success),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            navController.navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+                            val foregroundFragment = getForegroundFragment()
+                            if (foregroundFragment is HomeFragment) {
+                                foregroundFragment.clearUserData()
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    getString(R.string.log_out_success),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                navController.navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+                            }
                         }
                         setNegativeButton(
                             R.string.logout_no
@@ -139,6 +145,12 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    private fun getForegroundFragment(): Fragment? {
+        val navHostFragment: Fragment? =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        return navHostFragment?.childFragmentManager?.fragments?.get(0)
     }
 
     private fun dispatchPicturePickerIntent() {

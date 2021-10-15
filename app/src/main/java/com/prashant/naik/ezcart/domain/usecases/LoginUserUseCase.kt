@@ -5,4 +5,5 @@ import javax.inject.Inject
 
 class LoginUserUseCase @Inject constructor(val repository: Repository) {
     suspend fun loginUser(userId: String) = repository.loginUser(userId)
+    suspend fun logOutUser() = repository.clearUserData()
 }

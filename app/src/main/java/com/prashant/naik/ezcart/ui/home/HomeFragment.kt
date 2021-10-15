@@ -72,6 +72,10 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    fun clearUserData(){
+        viewModel.clearUserData()
+    }
+
     private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
         if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {

@@ -20,4 +20,6 @@ interface Repository {
     suspend fun removeCartItem(itemName: String)
 
     suspend fun addFeedback(feedback: Feedback)
+
+    suspend fun clearUserData()
 }

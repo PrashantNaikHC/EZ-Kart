@@ -13,4 +13,7 @@ interface LoginItemsDao {
 
     @Query("SELECT * FROM login_items")
     suspend fun loadLoginItems(): List<LoginItem>
+
+    @Query("DELETE FROM login_items")
+    suspend fun clearLoginItems()
 }

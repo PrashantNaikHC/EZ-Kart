@@ -1,9 +1,6 @@
 package com.prashant.naik.ezcart.data.item
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.prashant.naik.ezcart.data.Item
 
 @Dao
@@ -18,4 +15,6 @@ interface CartItemsDao {
     @Query("SELECT * FROM user_items")
     suspend fun getCartItems(): List<Item>
 
+    @Query("DELETE FROM user_items")
+    suspend fun clearCartItems()
 }

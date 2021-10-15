@@ -10,4 +10,6 @@ interface CachedDataSource {
 
     fun saveOrders(ordersList: List<Order>)
     fun loadOrders(): List<Order>
+
+    fun clearUserData()
 }

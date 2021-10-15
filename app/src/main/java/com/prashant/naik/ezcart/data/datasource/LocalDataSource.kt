@@ -19,4 +19,6 @@ interface LocalDataSource {
 
     suspend fun loadOrders(): List<Order>
     suspend fun saveOrdersToDatabase(ordersList: List<Order>)
+
+    suspend fun clearUserData()
 }

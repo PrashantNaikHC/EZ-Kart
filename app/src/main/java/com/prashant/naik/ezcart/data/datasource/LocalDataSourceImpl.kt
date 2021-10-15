@@ -59,4 +59,9 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun saveOrdersToDatabase(ordersList: List<Order>) {
         ordersDao.insertOrderItems(ordersList)
     }
+
+    override suspend fun clearUserData() {
+        cartItemsDao.clearCartItems()
+        loginItemsDao.clearLoginItems()
+    }
 }
