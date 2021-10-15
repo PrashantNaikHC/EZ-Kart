@@ -39,12 +39,12 @@ class LoginFragment : DisposableFragment() {
     // Uncomment to make the toolbar invisible
     override fun onResume() {
         super.onResume()
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+        (activity as AppCompatActivity?)?.supportActionBar?.hide()
     }
 
     override fun onStop() {
         super.onStop()
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+        (activity as AppCompatActivity?)?.supportActionBar?.show()
     }
 
     override fun onCreateView(

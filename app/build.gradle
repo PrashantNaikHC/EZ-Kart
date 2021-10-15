@@ -48,6 +48,13 @@ task jacocoUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest','c
     }
 }
 
+// If you use an Android Gradle Plugin version lower than 4.2,
+// enable transforming @AndroidEntryPoint classes in local unit tests by
+// applying the following configuration in your module's build.gradle file
+hilt {
+    enableTransformForLocalTests = true
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -59,7 +66,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.prashant.naik.ezcart.HiltTestRunner"
     }
 
     buildTypes {
@@ -73,7 +80,7 @@ android {
     }
 
     testOptions {
-        execution 'ANDROID_TEST_ORCHESTRATOR'
+        //execution 'ANDROID_TEST_ORCHESTRATOR'
         animationsDisabled true
         unitTests {
             includeAndroidResources = true
@@ -145,5 +152,19 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // testing fragments
+    debugImplementation "androidx.fragment:fragment-testing:1.3.0-alpha08"
+
+    // truth
+    testImplementation "com.google.truth:truth:1.1.3"
+
+    // Hilt - For Robolectric tests.
+    testImplementation "com.google.dagger:hilt-android-testing:2.38.1"
+    kaptTest "com.google.dagger:hilt-android-compiler:2.38.1"
+
+    // Hilt - For instrumented tests.
+    androidTestImplementation "com.google.dagger:hilt-android-testing:2.38.1"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.38.1"
 }
