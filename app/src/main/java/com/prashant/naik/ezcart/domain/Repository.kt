@@ -12,6 +12,7 @@ interface Repository {
     suspend fun loginUser(userId: String) : UserProfile
 
     suspend fun loadLoginItems(): List<Item>?
+    suspend fun invalidateAndLoadLoginItems(): List<Item>
     suspend fun loadOrders(): List<Order>
 
     suspend fun addToCart(item: Item)

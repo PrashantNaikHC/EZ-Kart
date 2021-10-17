@@ -5,4 +5,5 @@ import javax.inject.Inject
 
 class LoadLoginItemsUseCase @Inject constructor(val repository: Repository) {
     suspend fun loadLoginItems() = repository.loadLoginItems()
+    suspend fun invalidateAndloadLoginItems() = repository.invalidateAndLoadLoginItems()
 }

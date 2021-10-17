@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -44,12 +45,14 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
         (activity as MainActivity).updateUserProfileDetails(args.userProfile)
-        (activity as MainActivity).toolbar.background = resources.getDrawable(R.drawable.ic_logo_header)
+        (activity as MainActivity).toolbar.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_logo_header, null)
 
-        viewModel.loadLoginItems().observe(viewLifecycleOwner, { response ->
+        viewModel.loadLoginItems()
+        viewModel.loginItems.observe(viewLifecycleOwner, { response ->
             response.let {
                 if (it != null) {
                     adapter.setData(it)
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
         })
@@ -60,14 +63,18 @@ class HomeFragment : Fragment() {
 
         val adapter: PagerAdapter = BannerAdapter(
             bannerImages = listOf(
-                resources.getDrawable(R.drawable.banner_01),
-                resources.getDrawable(R.drawable.banner_02),
-                resources.getDrawable(R.drawable.banner_03),
-                resources.getDrawable(R.drawable.banner_04),
-                resources.getDrawable(R.drawable.banner_05)),
+                ResourcesCompat.getDrawable(resources, R.drawable.banner_01, null),
+                ResourcesCompat.getDrawable(resources, R.drawable.banner_02, null),
+                ResourcesCompat.getDrawable(resources, R.drawable.banner_03, null),
+                ResourcesCompat.getDrawable(resources, R.drawable.banner_04, null),
+                ResourcesCompat.getDrawable(resources, R.drawable.banner_05, null)),
             context = requireActivity())
         binding.viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.viewPager, true)
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = true
+            viewModel.invalidateAndLoadLoginItems()
+        }
 
         return binding.root
     }

@@ -167,4 +167,7 @@ dependencies {
     // Hilt - For instrumented tests.
     androidTestImplementation "com.google.dagger:hilt-android-testing:2.38.1"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.38.1"
+
+    // swipe refresh layout
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }

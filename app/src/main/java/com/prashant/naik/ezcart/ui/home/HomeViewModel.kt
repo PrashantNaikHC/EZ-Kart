@@ -1,9 +1,7 @@
 package com.prashant.naik.ezcart.ui.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.domain.usecases.CartUseCase
 import com.prashant.naik.ezcart.domain.usecases.LoadLoginItemsUseCase
 import com.prashant.naik.ezcart.domain.usecases.LoginUserUseCase
@@ -18,9 +16,11 @@ class HomeViewModel @Inject constructor(
     private val loginUserUseCase: LoginUserUseCase
 ) : ViewModel() {
 
-    fun loadLoginItems() = liveData {
-        val items = loadItemsUseCase.loadLoginItems()
-        emit(items)
+    val _loginItems = MutableLiveData<List<Item>>()
+    val loginItems: LiveData<List<Item>> = _loginItems
+
+    fun loadLoginItems() = viewModelScope.launch {
+        _loginItems.value = loadItemsUseCase.loadLoginItems()
     }
 
     fun getItemsOnCart() = liveData {
@@ -30,6 +30,10 @@ class HomeViewModel @Inject constructor(
 
     fun clearUserData() = viewModelScope.launch {
         loginUserUseCase.logOutUser()
+    }
+
+    fun invalidateAndLoadLoginItems() = viewModelScope.launch {
+        _loginItems.value = loadItemsUseCase.invalidateAndloadLoginItems()
     }
 
 }

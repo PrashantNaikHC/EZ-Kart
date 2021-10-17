@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.prashant.naik.ezcart.R
 
 class BannerAdapter(
-    val bannerImages: List<Drawable>,
+    val bannerImages: List<Drawable?>,
     val context: Context
 ) : PagerAdapter() {
 

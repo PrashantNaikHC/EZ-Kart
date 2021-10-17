@@ -55,6 +55,14 @@ class RepositoryImpl @Inject constructor(
         Log.d(TAG, "clearUserData: ")
     }
 
+    override suspend fun invalidateAndLoadLoginItems(): List<Item> {
+        val newListLoginItems = loadLoginItemsFromNetwork()
+        localDataSource.clearUserData()
+        localDataSource.saveLoginItemsToDatabase(newListLoginItems)
+        cachedDataSource.saveLoginItems(newListLoginItems)
+        return newListLoginItems
+    }
+
     private suspend fun loadLoginItemsFromCache(): List<Item> {
         lateinit var itemsList: List<Item>
         try {
@@ -152,12 +160,4 @@ class RepositoryImpl @Inject constructor(
         }
         return ordersList
     }
-
-    /*override suspend fun getUpdatedMovieList(): List<Item>? {
-        val newListOfMovies = getMoviesFromAPI()
-        localDataSource.clearAll()
-        localDataSource.saveMoviesToDB(newListOfMovies)
-        cacheDataSource.saveMovies(newListOfMovies)
-        return newListOfMovies
-    }*/
 }
