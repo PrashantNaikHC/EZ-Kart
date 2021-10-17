@@ -66,7 +66,7 @@ class LoginFragment : DisposableFragment() {
                 progressDialog.dismiss()
                 viewModel.loginUser(
                     binding.usernameInputEditText.editText?.text.toString(),
-                    binding.passwordInputEditText.editText?.text.toString()
+                    binding.passwordInputEditText.editText?.text.toString().toSHA256()
                 ).observe(viewLifecycleOwner, { userProfilePair ->
                     if (binding.passwordInputEditText.validateSignInSuccess(userProfilePair.first, requireActivity())) {
                         userProfilePair.second?.let { userProfile ->

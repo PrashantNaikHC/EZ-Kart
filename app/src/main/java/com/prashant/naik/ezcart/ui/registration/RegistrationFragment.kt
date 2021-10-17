@@ -144,7 +144,7 @@ class RegistrationFragment : DisposableFragment() {
             userId = binding.userIdInputEditText.editText?.text.toString(),
             firstName = binding.firstNameInputEditText.editText?.text.toString(),
             lastName = binding.lastNameInputEditText.editText?.text.toString(),
-            password = binding.passwordInputEditText.editText?.text.toString(),
+            password = binding.passwordInputEditText.editText?.text.toString().toSHA256(),
             phone = binding.mobileNumberInputEditText.editText?.text.toString()
         )
     }
