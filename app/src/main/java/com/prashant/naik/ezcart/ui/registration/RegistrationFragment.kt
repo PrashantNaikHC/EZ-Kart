@@ -59,7 +59,8 @@ class RegistrationFragment : DisposableFragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
-                        isFirstNameValidated = binding.firstNameInputEditText.validateInputField(text)
+                        isFirstNameValidated =
+                            validateInputField(binding.firstNameInputEditText, text)
                         updateRegistrationButton()
                     }
                     override fun onError(e: Throwable?) {}
@@ -73,7 +74,8 @@ class RegistrationFragment : DisposableFragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
-                        isLastNameValidated = binding.lastNameInputEditText.validateInputField(text)
+                        isLastNameValidated =
+                            validateInputField(binding.lastNameInputEditText, text)
                         updateRegistrationButton()
                     }
                     override fun onError(e: Throwable?) {}
@@ -86,8 +88,9 @@ class RegistrationFragment : DisposableFragment() {
             userIdObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
-                    override fun onNext(text: String?) {
-                        isUserNameValidated = binding.userIdInputEditText.validateInputIsEmail(text)
+                    override fun onNext(text: String) {
+                        isUserNameValidated =
+                            validateInputIsEmail(binding.userIdInputEditText, text)
                         updateRegistrationButton()
                     }
                     override fun onError(e: Throwable?) {}
@@ -101,7 +104,8 @@ class RegistrationFragment : DisposableFragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
-                        isPasswordValidated = binding.passwordInputEditText.validateSignUpPassword(text)
+                        isPasswordValidated =
+                            validateSignUpPassword(binding.passwordInputEditText, text)
                         updateRegistrationButton()
                     }
                     override fun onError(e: Throwable?) {}
@@ -114,7 +118,8 @@ class RegistrationFragment : DisposableFragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
-                        isMobileValidated = binding.mobileNumberInputEditText.validateInputIsMobile(text)
+                        isMobileValidated =
+                            validateInputIsMobile(binding.mobileNumberInputEditText, text)
                         updateRegistrationButton()
                     }
                     override fun onError(e: Throwable?) {}
@@ -129,7 +134,7 @@ class RegistrationFragment : DisposableFragment() {
             progressDialog.show()
             val newUserProfille = collectProfileData(binding)
             viewModel.registerNewUser(newUserProfille)
-            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+            Handler(Looper.getMainLooper()).postDelayed({
                 progressDialog.dismiss()
                 findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment(newUserProfille))
             }, LOGIN_DELAY)

@@ -42,7 +42,12 @@ class FeedbackFragment : DisposableFragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
                     override fun onNext(text: String?) {
-                        updateSubmitButtonState(binding.editTextTextMultiLine.validateFeedbackField(text))
+                        updateSubmitButtonState(
+                            validateFeedbackField(
+                                binding.editTextTextMultiLine,
+                                text
+                            )
+                        )
                     }
                     override fun onError(e: Throwable?) {}
                     override fun onComplete() {}

@@ -29,7 +29,6 @@ class LoginFragment : DisposableFragment() {
     private lateinit var binding: FragmentLoginBinding
 
     private var isUserNameValidated = false
-    private var isPasswordValidated = false
 
     @Inject
     lateinit var factory: LoginViewModelFactory
@@ -68,7 +67,11 @@ class LoginFragment : DisposableFragment() {
                     binding.usernameInputEditText.editText?.text.toString(),
                     binding.passwordInputEditText.editText?.text.toString().toSHA256()
                 ).observe(viewLifecycleOwner, { userProfilePair ->
-                    if (binding.passwordInputEditText.validateSignInSuccess(userProfilePair.first, requireActivity())) {
+                    if (validateSignInSuccess(
+                            binding.passwordInputEditText,
+                            userProfilePair.first
+                        )
+                    ) {
                         userProfilePair.second?.let { userProfile ->
                             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(userProfile))
                         }
@@ -89,9 +92,9 @@ class LoginFragment : DisposableFragment() {
             nameObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
-                    override fun onNext(text: String?) {
+                    override fun onNext(text: String) {
                         isUserNameValidated =
-                            binding.usernameInputEditText.validateInputIsEmail(text)
+                            validateInputIsEmail(binding.usernameInputEditText, text)
                         updateLoginButton()
                     }
 
