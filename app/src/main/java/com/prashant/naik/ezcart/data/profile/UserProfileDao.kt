@@ -14,4 +14,7 @@ interface UserProfileDao {
     @Query("SELECT * FROM user_profiles WHERE userId == :userId")
     suspend fun loginUser(userId: String): UserProfile
 
+
+    @Query("SELECT * FROM user_profiles")
+    suspend fun getAllUserProfiles(): List<UserProfile>
 }

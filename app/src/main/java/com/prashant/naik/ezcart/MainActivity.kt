@@ -249,7 +249,7 @@ class MainActivity : AppCompatActivity() {
         Glide.with(this)
             .load(
                 loadProfilePictureFromInternalStorage(this, userProfile.userId)
-                    ?: resources.getDrawable(R.drawable.profile_placeholder)
+                    ?: ResourcesCompat.getDrawable(resources, R.drawable.profile_placeholder, null)
             )
             .circleCrop()
             .into(userProfileImageView)
