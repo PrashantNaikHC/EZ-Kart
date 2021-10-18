@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.prashant.naik.ezcart.MainActivity
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.data.profile.UserProfile
 import com.prashant.naik.ezcart.databinding.FragmentRegistrationBinding
@@ -51,7 +52,7 @@ class RegistrationFragment : DisposableFragment() {
         val userIdObservable = createTextInputLayoutObservable(binding.userIdInputEditText.editText!!)
         val passwordObservable = createTextInputLayoutObservable(binding.passwordInputEditText.editText!!)
         val mobileNumberObservable = createTextInputLayoutObservable(binding.mobileNumberInputEditText.editText!!)
-
+        (activity as MainActivity).setCartViewVisibility(false)
 
         //region adding subscriptions
         compositeDisposable.add(

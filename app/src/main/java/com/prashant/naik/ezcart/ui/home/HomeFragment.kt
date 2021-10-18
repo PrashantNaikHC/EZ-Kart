@@ -45,7 +45,9 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
         (activity as MainActivity).updateUserProfileDetails(args.userProfile)
-        (activity as MainActivity).toolbar.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_logo_header, null)
+
+        (activity as MainActivity).toolbarLogoLayout.visibility = View.VISIBLE
+        (activity as MainActivity).setCartViewVisibility(true)
 
         viewModel.loadLoginItems()
         viewModel.loginItems.observe(viewLifecycleOwner, { response ->
@@ -102,6 +104,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).toolbar.background = null
+        (activity as MainActivity).toolbarLogoLayout.visibility = View.GONE
+        (activity as MainActivity).setCartViewVisibility(false)
     }
 }

@@ -7,6 +7,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,7 +15,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -49,12 +53,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationText: TextView
     private var notificationCount: String = "0"
     private lateinit var navController: NavController
+    private lateinit var cartView: MenuItem
+    private var cartViewVisibility: Boolean = false
+    lateinit var toolbarLogoLayout: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        toolbarLogoLayout = toolbar[0].findViewById(R.id.constraint_toolbar_layout)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -172,10 +181,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun setCartViewVisibility(visibility: Boolean) {
+        cartViewVisibility = visibility
+        invalidateOptionsMenu()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.main_menu, menu)
         val count: View = menu.findItem(R.id.badge).actionView
+        cartView = menu.findItem(R.id.badge)
         notificationText = count.findViewById(R.id.cart_notification) as TextView
         if (Integer.parseInt(notificationCount) == 0) {
             notificationText.visibility = View.GONE
@@ -183,6 +198,7 @@ class MainActivity : AppCompatActivity() {
             notificationText.visibility = View.VISIBLE
             notificationText.text = notificationCount
         }
+        cartView.isVisible = cartViewVisibility
         count.setOnClickListener {
             try {
                 navController.navigate(HomeFragmentDirections.actionHomeFragmentToCartFragment())
@@ -212,7 +228,7 @@ class MainActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(
                     loadProfilePictureFromInternalStorage(this, userProfile.userId)
-                        ?: resources.getDrawable(R.drawable.profile_placeholder)
+                        ?: ResourcesCompat.getDrawable(resources, R.drawable.profile_placeholder, null)
                 )
                 .circleCrop()
                 .into(userProfileImageView)

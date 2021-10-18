@@ -60,11 +60,10 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MyViewHolder>() {
         fun getLatestOrder(ordersList: List<Order>): Order {
             return ordersList
                 .sortedWith { order1, order2 ->
-                    val firstDate = SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(order1.orderDate)
-                    val secondDate = SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(order2.orderDate)
-                    firstDate!!.compareTo(secondDate)
+                    val date1 = SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(order1.orderDate)
+                    val date2 = SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(order2.orderDate)
+                    date2!!.compareTo(date1)
                 }
-                .reversed()
                 .first()
         }
     }
