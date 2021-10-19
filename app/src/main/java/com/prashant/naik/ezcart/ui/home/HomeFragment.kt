@@ -44,10 +44,10 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
-        (activity as MainActivity).updateUserProfileDetails(args.userProfile)
+        (activity as? MainActivity)?.updateUserProfileDetails(args.userProfile)
 
-        (activity as MainActivity).toolbarLogoLayout.visibility = View.VISIBLE
-        (activity as MainActivity).setCartViewVisibility(true)
+        (activity as? MainActivity)?.toolbarLogoLayout?.visibility = View.VISIBLE
+        (activity as? MainActivity)?.setCartViewVisibility(true)
 
         viewModel.loadLoginItems()
         viewModel.loginItems.observe(viewLifecycleOwner, { response ->
@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.getItemsOnCart().observe(viewLifecycleOwner, {
-            (activity as MainActivity).setNotificationCount(it)
+            (activity as? MainActivity)?.setNotificationCount(it)
         })
 
         val adapter: PagerAdapter = BannerAdapter(
@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).toolbarLogoLayout.visibility = View.GONE
-        (activity as MainActivity).setCartViewVisibility(false)
+        (activity as? MainActivity)?.toolbarLogoLayout?.visibility = View.GONE
+        (activity as? MainActivity)?.setCartViewVisibility(false)
     }
 }
