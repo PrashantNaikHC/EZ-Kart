@@ -10,7 +10,7 @@
         tools:context=".ui.feedback.FeedbackFragment">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/rating_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_general"
@@ -28,9 +28,9 @@
             android:layout_marginTop="@dimen/margin_general"
             android:numStars="5"
             android:stepSize="1"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintBottom_toBottomOf="@+id/rating_label"
+            app:layout_constraintStart_toEndOf="@+id/rating_label"
+            app:layout_constraintTop_toTopOf="@+id/rating_label" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editTextTextMultiLine"
