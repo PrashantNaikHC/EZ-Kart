@@ -48,7 +48,7 @@ class CartFragment : Fragment() {
 
         viewModel.cartItemsList.observe(viewLifecycleOwner, { items ->
             adapter.setData(items.toMutableList())
-            (activity as MainActivity).setNotificationCount(items.count())
+            (activity as? MainActivity)?.setNotificationCount(items.count())
             updateTotals()
         })
 
