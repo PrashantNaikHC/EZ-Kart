@@ -52,7 +52,7 @@ class RegistrationFragment : DisposableFragment() {
         val userIdObservable = createTextInputLayoutObservable(binding.userIdInputEditText.editText!!)
         val passwordObservable = createTextInputLayoutObservable(binding.passwordInputEditText.editText!!)
         val mobileNumberObservable = createTextInputLayoutObservable(binding.mobileNumberInputEditText.editText!!)
-        (activity as MainActivity).setCartViewVisibility(false)
+        (activity as? MainActivity)?.setCartViewVisibility(false)
 
         //region adding subscriptions
         compositeDisposable.add(
