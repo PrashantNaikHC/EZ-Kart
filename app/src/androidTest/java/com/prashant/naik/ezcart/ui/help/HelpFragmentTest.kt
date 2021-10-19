@@ -1,4 +1,4 @@
-package com.prashant.naik.ezcart.ui.feedback
+package com.prashant.naik.ezcart.ui.help
 
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
-class FeedbackFragmentTest {
+class HelpFragmentTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -23,15 +23,9 @@ class FeedbackFragmentTest {
     @ExperimentalCoroutinesApi
     @Test
     fun testLoginFragmentUIisDisplayed() {
-        launchFragmentInHiltContainer<FeedbackFragment> {  }
+        launchFragmentInHiltContainer<HelpFragment> {  }
 
-        Espresso.onView(ViewMatchers.withId(R.id.ratingBar))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.editTextTextMultiLine))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.submit_feedback_button))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.rating_label))
+        Espresso.onView(ViewMatchers.withId(R.id.webview))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 }
