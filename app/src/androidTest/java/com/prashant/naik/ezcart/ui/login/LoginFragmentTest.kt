@@ -23,7 +23,7 @@ class LoginFragmentTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun testLoginFragmentUI() {
+    fun testLoginFragmentUIisDisplayed() {
         launchFragmentInHiltContainer<LoginFragment> {  }
         onView(withId(R.id.usernameInputEditText)).check(matches(isDisplayed()))
         onView(withId(R.id.passwordInputEditText)).check(matches(isDisplayed()))
