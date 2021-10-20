@@ -8,7 +8,7 @@ import com.prashant.naik.ezcart.data.profile.UserProfile
 class FakeRepository : Repository {
     val loginItems = mutableListOf<Item>()
     val cartItems = mutableListOf<Item>()
-    val orders = mutableListOf<Order>()
+    var orders = mutableListOf<Order>()
     val userProfiles = mutableListOf<UserProfile>()
     val feedbacks = mutableListOf<Feedback>()
 
@@ -20,7 +20,7 @@ class FakeRepository : Repository {
         return userProfiles.find { it.userId == userId }
     }
 
-    override suspend fun loadLoginItems(): List<Item>? {
+    override suspend fun loadLoginItems(): List<Item> {
         return loginItems
     }
 
