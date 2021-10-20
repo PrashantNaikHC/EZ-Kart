@@ -7,11 +7,9 @@ import com.prashant.naik.ezcart.data.profile.UserProfile
 import com.prashant.naik.ezcart.domain.FakeRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
@@ -20,7 +18,7 @@ import org.junit.runners.JUnit4
 class RegisterUserUseCaseTest {
 
     lateinit var repository: FakeRepository
-    lateinit var useCase: RegisterUserUseCase
+    private lateinit var useCase: RegisterUserUseCase
 
     @get:Rule
     var coroutineRule = MainCoroutineRule()

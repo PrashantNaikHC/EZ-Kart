@@ -18,7 +18,8 @@ class FeedbackViewModel @Inject constructor(private val addFeedbackUseCase: AddF
 
 }
 
-class FeedbackViewModelFactory @Inject constructor(val addFeedbackUseCase: AddFeedbackUseCase) :
+@Suppress("UNCHECKED_CAST")
+class FeedbackViewModelFactory @Inject constructor(private val addFeedbackUseCase: AddFeedbackUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {

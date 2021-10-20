@@ -72,8 +72,8 @@ class ValidationUtilsTest {
     }
 
     @Test
-    fun `Password with length less than 8 returns false`() {
-        assertFalse(validateSignUpPassword(null, "ASq12!"))
+    fun `Password with length less than 6 returns false`() {
+        assertFalse(validateSignUpPassword(null, "Aq12!"))
     }
 
     @Test

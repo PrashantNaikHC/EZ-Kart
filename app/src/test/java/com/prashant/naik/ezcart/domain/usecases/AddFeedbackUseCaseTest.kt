@@ -19,7 +19,7 @@ import org.junit.runners.JUnit4
 class AddFeedbackUseCaseTest {
 
     lateinit var repository: FakeRepository
-    lateinit var useCase: AddFeedbackUseCase
+    private lateinit var useCase: AddFeedbackUseCase
 
     @get:Rule
     var coroutineRule = MainCoroutineRule()

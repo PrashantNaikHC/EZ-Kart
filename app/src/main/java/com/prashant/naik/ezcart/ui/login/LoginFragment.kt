@@ -58,7 +58,7 @@ class LoginFragment : DisposableFragment() {
 
         initProgressDialog()
         updateLoginButton()
-        binding.loginButton.setOnClickListener { it ->
+        binding.loginButton.setOnClickListener {
             it.hideKeyboard()
             progressDialog.show()
             Handler(Looper.getMainLooper()).postDelayed({

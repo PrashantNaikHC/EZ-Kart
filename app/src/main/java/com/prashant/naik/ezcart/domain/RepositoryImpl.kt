@@ -11,9 +11,9 @@ import com.prashant.naik.ezcart.data.profile.UserProfile
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    val remoteDataSource: RemoteDataSource,
-    val localDataSource: LocalDataSource,
-    val cachedDataSource: CachedDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
+    private val cachedDataSource: CachedDataSource
 ) : Repository {
     private val TAG = "RepositoryImpl"
 
@@ -21,7 +21,7 @@ class RepositoryImpl @Inject constructor(
         localDataSource.registerProfile(userProfile)
     }
 
-    override suspend fun loginUser(userId: String): UserProfile? {
+    override suspend fun loginUser(userId: String): UserProfile {
         return localDataSource.loginUserProfile(userId)
     }
 

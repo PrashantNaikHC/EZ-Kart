@@ -19,7 +19,7 @@ import org.junit.runners.JUnit4
 class CartViewModelTest {
 
     lateinit var repository: FakeRepository
-    lateinit var viewModel: CartViewModel
+    private lateinit var viewModel: CartViewModel
 
     @get:Rule
     var coroutineRule = MainCoroutineRule()

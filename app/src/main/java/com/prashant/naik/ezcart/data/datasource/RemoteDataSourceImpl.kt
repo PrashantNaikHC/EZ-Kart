@@ -6,7 +6,7 @@ import com.prashant.naik.ezcart.network.ShoppingApi
 import retrofit2.Response
 import javax.inject.Inject
 
-class RemoteDataSourceImpl @Inject constructor(val shoppingApi: ShoppingApi) : RemoteDataSource {
+class RemoteDataSourceImpl @Inject constructor(private val shoppingApi: ShoppingApi) : RemoteDataSource {
     override suspend fun loadLoginItems(): Response<ItemsResult> {
         return shoppingApi.getProducts()
     }

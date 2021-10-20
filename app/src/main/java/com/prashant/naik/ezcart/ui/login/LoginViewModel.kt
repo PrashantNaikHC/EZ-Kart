@@ -21,7 +21,8 @@ class LoginViewModel @Inject constructor(private val loginUserUseCase: LoginUser
 
 }
 
-class LoginViewModelFactory @Inject constructor(val loginUserUseCase: LoginUserUseCase) :
+@Suppress("UNCHECKED_CAST")
+class LoginViewModelFactory @Inject constructor(private val loginUserUseCase: LoginUserUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {

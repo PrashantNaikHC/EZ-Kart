@@ -5,14 +5,11 @@ import com.google.common.truth.Truth
 import com.prashant.naik.ezcart.MainCoroutineRule
 import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.domain.FakeRepository
-import com.prashant.naik.ezcart.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
@@ -21,7 +18,7 @@ import org.junit.runners.JUnit4
 class LoadLoginItemsUseCaseTest {
 
     lateinit var repository: FakeRepository
-    lateinit var useCase: LoadLoginItemsUseCase
+    private lateinit var useCase: LoadLoginItemsUseCase
 
     @get:Rule
     var coroutineRule = MainCoroutineRule()

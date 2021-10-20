@@ -17,7 +17,8 @@ class OrdersViewModel @Inject constructor(private val loadOrdersUseCase: LoadOrd
 
 }
 
-class OrdersViewModelFactory @Inject constructor(val loadOrdersUseCase: LoadOrdersUseCase) :
+@Suppress("UNCHECKED_CAST")
+class OrdersViewModelFactory @Inject constructor(private val loadOrdersUseCase: LoadOrdersUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {

@@ -15,11 +15,9 @@ fun validateInputIsEmail(textInputLayout: TextInputLayout?, target: String): Boo
         )
         validationSuccessful = true
     } else {
-        if(textInputLayout != null) {
-            textInputLayout.setupInputLayout(
-                errorString = textInputLayout.context?.getString(R.string.invalid_email)
-            )
-        }
+        textInputLayout?.setupInputLayout(
+            errorString = textInputLayout.context?.getString(R.string.invalid_email)
+        )
     }
     return validationSuccessful
 }
@@ -84,7 +82,7 @@ fun validateSignUpPassword(textInputLayout: TextInputLayout?, target: String?): 
     val upperLettersRegex = Regex("[A-Z]+")
     val specialCharsRegex = Regex("[:;~!@#$%^&*()_+\\-=]")
     when {
-        target!!.length < 8 -> textInputLayout?.error = textInputLayout?.context?.getString(R.string.password_validation_text_1)
+        target!!.length < 6 -> textInputLayout?.error = textInputLayout?.context?.getString(R.string.password_validation_text_1)
         !target.contains(numberRegex) -> {
             textInputLayout?.setupInputLayout(
                 errorString = textInputLayout.context.getString(R.string.password_validation_text_2)

@@ -28,7 +28,8 @@ class CartViewModel @Inject constructor(private val cartUseCase: CartUseCase) : 
 
 }
 
-class CartViewModelFactory @Inject constructor(val cartUseCase: CartUseCase) :
+@Suppress("UNCHECKED_CAST")
+class CartViewModelFactory @Inject constructor(private val cartUseCase: CartUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {

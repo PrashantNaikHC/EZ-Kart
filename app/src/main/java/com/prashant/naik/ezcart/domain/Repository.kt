@@ -2,10 +2,8 @@ package com.prashant.naik.ezcart.domain
 
 import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.data.Order
-import com.prashant.naik.ezcart.data.OrdersResult
 import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
-import retrofit2.Response
 
 interface Repository {
     suspend fun registerUser(userProfile: UserProfile)

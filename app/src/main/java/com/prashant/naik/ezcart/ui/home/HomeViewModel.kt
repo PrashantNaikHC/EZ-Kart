@@ -1,6 +1,5 @@
 package com.prashant.naik.ezcart.ui.home
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
 import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.domain.usecases.CartUseCase
@@ -17,7 +16,7 @@ class HomeViewModel @Inject constructor(
     private val loginUserUseCase: LoginUserUseCase
 ) : ViewModel() {
 
-    val _loginItems = MutableLiveData<List<Item>>()
+    private val _loginItems = MutableLiveData<List<Item>>()
     val loginItems: LiveData<List<Item>> = _loginItems
 
     fun loadLoginItems() = viewModelScope.launch {
@@ -39,8 +38,9 @@ class HomeViewModel @Inject constructor(
 
 }
 
+@Suppress("UNCHECKED_CAST")
 class HomeViewModelFactory @Inject constructor(
-    val loadItemsUseCase: LoadLoginItemsUseCase,
+    private val loadItemsUseCase: LoadLoginItemsUseCase,
     private val cartUseCase: CartUseCase,
     private val loginUserUseCase: LoginUserUseCase
 ) :

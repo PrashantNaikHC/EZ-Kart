@@ -20,7 +20,7 @@ import org.mockito.MockitoAnnotations
 @RunWith(JUnit4::class)
 class LoginViewModelTest {
 
-    lateinit var loginViewModel: LoginViewModel
+    private lateinit var loginViewModel: LoginViewModel
     lateinit var repository : FakeRepository
 
     @get:Rule
@@ -29,12 +29,11 @@ class LoginViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var profile1 : UserProfile
-    lateinit var profile2 : UserProfile
+    private lateinit var profile1 : UserProfile
+    private lateinit var profile2 : UserProfile
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
         repository = FakeRepository()
         loginViewModel = LoginViewModel(LoginUserUseCase(repository))
         profile1 = UserProfile(

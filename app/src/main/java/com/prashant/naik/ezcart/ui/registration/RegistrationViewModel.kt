@@ -18,7 +18,8 @@ class RegistrationViewModel @Inject constructor(private val registerUserUseCase:
 
 }
 
-class RegistrationViewModelFactory @Inject constructor(val registerUserUseCase: RegisterUserUseCase) :
+@Suppress("UNCHECKED_CAST")
+class RegistrationViewModelFactory @Inject constructor(private val registerUserUseCase: RegisterUserUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {

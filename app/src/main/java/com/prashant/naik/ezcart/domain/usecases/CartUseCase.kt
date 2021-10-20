@@ -1,6 +1,5 @@
 package com.prashant.naik.ezcart.domain.usecases
 
-import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.domain.Repository
 import javax.inject.Inject
 

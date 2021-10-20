@@ -21,7 +21,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class OrderViewModelTest {
 
-    lateinit var ordersViewModel: OrdersViewModel
+    private lateinit var ordersViewModel: OrdersViewModel
     lateinit var repository : FakeRepository
 
     @get:Rule
@@ -30,7 +30,7 @@ class OrderViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var profile1 : UserProfile
+    private lateinit var profile1 : UserProfile
 
     @Before
     fun setup() {

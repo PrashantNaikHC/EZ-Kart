@@ -13,7 +13,7 @@ import java.util.*
 
 class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MyViewHolder>() {
 
-    var itemsList = emptyList<Item>()
+    private var itemsList = emptyList<Item>()
     lateinit var orderDate: String
 
     class MyViewHolder(

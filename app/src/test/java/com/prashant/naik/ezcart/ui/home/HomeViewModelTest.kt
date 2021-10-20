@@ -20,7 +20,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class HomeViewModelTest {
 
-    lateinit var homeViewModel: HomeViewModel
+    private lateinit var homeViewModel: HomeViewModel
     lateinit var repository: FakeRepository
 
     @get:Rule

@@ -17,7 +17,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class FeedbackViewModelTest {
 
-    lateinit var feedbackViewModel: FeedbackViewModel
+    private lateinit var feedbackViewModel: FeedbackViewModel
     lateinit var repository: FakeRepository
 
     @get:Rule

@@ -20,7 +20,7 @@ import org.junit.runners.JUnit4
 class LoginUserUseCaseTest {
 
     lateinit var repository: FakeRepository
-    lateinit var useCase: LoginUserUseCase
+    private lateinit var useCase: LoginUserUseCase
 
     @get:Rule
     var coroutineRule = MainCoroutineRule()

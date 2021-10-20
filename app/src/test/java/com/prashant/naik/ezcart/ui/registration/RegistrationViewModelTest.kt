@@ -18,7 +18,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class RegistrationViewModelTest {
 
-    lateinit var registrationViewModel: RegistrationViewModel
+    private lateinit var registrationViewModel: RegistrationViewModel
     lateinit var repository : FakeRepository
 
     @get:Rule
@@ -27,7 +27,7 @@ class RegistrationViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var profile1 : UserProfile
+    private lateinit var profile1 : UserProfile
 
     @Before
     fun setup() {

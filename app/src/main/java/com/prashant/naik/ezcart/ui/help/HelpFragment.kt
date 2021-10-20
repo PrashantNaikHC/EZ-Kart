@@ -12,7 +12,7 @@ import com.prashant.naik.ezcart.databinding.FragmentHelpBinding
 class HelpFragment : Fragment() {
 
     companion object {
-        val HELP_URL = "https://developer.android.com/guide/webapps/webview"
+        const val HELP_URL = "https://developer.android.com/guide/webapps/webview"
     }
 
     lateinit var binding : FragmentHelpBinding

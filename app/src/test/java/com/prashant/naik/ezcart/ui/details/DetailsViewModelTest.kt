@@ -17,7 +17,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class DetailsViewModelTest {
 
-    lateinit var viewModel : DetailsViewModel
+    private lateinit var viewModel : DetailsViewModel
     lateinit var repository: FakeRepository
 
     @get:Rule
