@@ -95,11 +95,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment,
-                R.id.cartFragment,
-                R.id.orderFragment
-            ), drawerLayout
+            setOf(R.id.homeFragment), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -114,16 +110,13 @@ class MainActivity : AppCompatActivity() {
                         setPositiveButton(
                             R.string.logout_yes
                         ) { _, _ ->
-                            val foregroundFragment = getForegroundFragment()
-                            if (foregroundFragment is HomeFragment) {
-                                foregroundFragment.clearUserData()
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    getString(R.string.log_out_success),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                navController.navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
-                            }
+                            getForegroundFragment()?.clearUserData()
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.log_out_success),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            navController.navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                         }
                         setNegativeButton(
                             R.string.logout_no
@@ -156,10 +149,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getForegroundFragment(): Fragment? {
+    private fun getForegroundFragment(): HomeFragment? {
         val navHostFragment: Fragment? =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        return navHostFragment?.childFragmentManager?.fragments?.get(0)
+        return navHostFragment?.childFragmentManager?.fragments?.get(0) as? HomeFragment
     }
 
     private fun dispatchPicturePickerIntent() {
