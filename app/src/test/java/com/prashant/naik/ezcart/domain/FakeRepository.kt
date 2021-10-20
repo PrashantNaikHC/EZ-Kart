@@ -6,8 +6,8 @@ import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
 
 class FakeRepository : Repository {
-    val loginItems = mutableListOf<Item>()
-    val cartItems = mutableListOf<Item>()
+    var loginItems = mutableListOf<Item>()
+    var cartItems = mutableListOf<Item>()
     var orders = mutableListOf<Order>()
     val userProfiles = mutableListOf<UserProfile>()
     val feedbacks = mutableListOf<Feedback>()
@@ -25,6 +25,7 @@ class FakeRepository : Repository {
     }
 
     override suspend fun invalidateAndLoadLoginItems(): List<Item> {
+        loginItems.clear()
         return loginItems
     }
 
@@ -50,6 +51,7 @@ class FakeRepository : Repository {
     }
 
     override suspend fun clearUserData() {
-        userProfiles.clear()
+        cartItems.clear()
+        loginItems.clear()
     }
 }
