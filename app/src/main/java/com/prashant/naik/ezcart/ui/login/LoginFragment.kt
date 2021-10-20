@@ -135,6 +135,7 @@ class LoginFragment : DisposableFragment() {
         return spannable
     }
 
+    @Suppress("DEPRECATION")
     private fun initProgressDialog() {
         progressDialog = ProgressDialog(requireActivity())
         progressDialog.setMessage(getString(R.string.login_dialog_text))

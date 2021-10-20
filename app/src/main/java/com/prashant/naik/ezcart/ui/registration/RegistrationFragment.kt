@@ -155,6 +155,7 @@ class RegistrationFragment : DisposableFragment() {
         )
     }
 
+    @Suppress("DEPRECATION")
     private fun initProgressDialog() {
         progressDialog = ProgressDialog(requireActivity())
         progressDialog.setMessage(getString(R.string.register_dialog_text))

@@ -14,14 +14,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
 class LoginViewModelTest {
 
     private lateinit var loginViewModel: LoginViewModel
-    lateinit var repository : FakeRepository
+    lateinit var repository: FakeRepository
 
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
@@ -29,8 +28,8 @@ class LoginViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var profile1 : UserProfile
-    private lateinit var profile2 : UserProfile
+    private lateinit var profile1: UserProfile
+    private lateinit var profile2: UserProfile
 
     @Before
     fun setup() {
@@ -61,19 +60,22 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `given new user, when logged in, should return user not found login state`() = runBlockingTest {
-        repository.registerUser(profile1)
-        val result = loginViewModel.loginUser(profile2.userId, profile2.password).getOrAwaitValue()
-        assertThat(result.first).isEqualTo(LoginState.USER_NOT_PRESENT)
-        assertThat(result.second).isEqualTo(null)
-    }
+    fun `given new user, when logged in, should return user not found login state`() =
+        runBlockingTest {
+            repository.registerUser(profile1)
+            val result =
+                loginViewModel.loginUser(profile2.userId, profile2.password).getOrAwaitValue()
+            assertThat(result.first).isEqualTo(LoginState.USER_NOT_PRESENT)
+            assertThat(result.second).isEqualTo(null)
+        }
 
     @Test
-    fun `given registered user, when wrong password is given, should return incorrect password login state`() = runBlockingTest {
-        repository.registerUser(profile1)
-        val result = loginViewModel.loginUser(profile1.userId, "asdf").getOrAwaitValue()
-        assertThat(result.first).isEqualTo(LoginState.INCORRECT_PASSWORD)
-        assertThat(result.second).isEqualTo(null)
-    }
+    fun `given registered user, when wrong password is given, should return incorrect password login state`() =
+        runBlockingTest {
+            repository.registerUser(profile1)
+            val result = loginViewModel.loginUser(profile1.userId, "asdf").getOrAwaitValue()
+            assertThat(result.first).isEqualTo(LoginState.INCORRECT_PASSWORD)
+            assertThat(result.second).isEqualTo(null)
+        }
 
 }

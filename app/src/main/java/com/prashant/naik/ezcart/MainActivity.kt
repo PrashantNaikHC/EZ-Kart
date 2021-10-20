@@ -41,6 +41,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.*
 import java.util.*
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -56,8 +57,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cartView: MenuItem
     private var cartViewVisibility: Boolean = false
     lateinit var toolbarLogoLayout: ConstraintLayout
-    lateinit var activityResultLauncherForCamera: ActivityResultLauncher<Intent>
-    lateinit var activityResultLauncherForGallary: ActivityResultLauncher<Intent>
+    private lateinit var activityResultLauncherForCamera: ActivityResultLauncher<Intent>
+    private lateinit var activityResultLauncherForGallary: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -174,7 +175,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                val imageBitmap = MediaStore.Images.Media.getBitmap(
+                @Suppress("DEPRECATION") val imageBitmap = MediaStore.Images.Media.getBitmap(
                     this@MainActivity.contentResolver,
                     result.data?.data
                 )
