@@ -9,7 +9,7 @@ class FakeRepository : Repository {
     var loginItems = mutableListOf<Item>()
     var cartItems = mutableListOf<Item>()
     var orders = mutableListOf<Order>()
-    val userProfiles = mutableListOf<UserProfile>()
+    var userProfiles = mutableListOf<UserProfile>()
     val feedbacks = mutableListOf<Feedback>()
 
     override suspend fun registerUser(userProfile: UserProfile) {
