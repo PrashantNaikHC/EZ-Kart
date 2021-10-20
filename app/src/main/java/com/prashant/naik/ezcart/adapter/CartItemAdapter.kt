@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.databinding.ListCartItemBinding
 import com.prashant.naik.ezcart.utils.ItemDiffUtil
+import com.prashant.naik.ezcart.utils.getMappedImageResource
 
 class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 
@@ -32,6 +33,7 @@ class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
             position: Int
         ) {
             binding.item = item
+            binding.productImage.setImageResource(item.getMappedImageResource())
             binding.cartItemRemoveButton.setOnClickListener {
                 clickListener.invoke(Pair(item, position))
             }

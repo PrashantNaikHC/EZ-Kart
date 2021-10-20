@@ -8,6 +8,7 @@ import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.data.Order
 import com.prashant.naik.ezcart.databinding.ListOrderBinding
 import com.prashant.naik.ezcart.utils.ItemDiffUtil
+import com.prashant.naik.ezcart.utils.getMappedImageResource
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,6 +32,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.MyViewHolder>() {
 
         fun bind(item: Item, orderDate: String) {
             binding.item = item
+            binding.productImage.setImageResource(item.getMappedImageResource())
             binding.orderDate = orderDate
             binding.executePendingBindings()
         }

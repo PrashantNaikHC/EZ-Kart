@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.databinding.ListItemBinding
 import com.prashant.naik.ezcart.utils.ItemDiffUtil
+import com.prashant.naik.ezcart.utils.getMappedImageResource
 
 class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
@@ -28,6 +29,7 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
         fun bind(item: Item, clickListner: (Item) -> Unit) {
             binding.item = item
+            binding.productImage.setImageResource(item.getMappedImageResource())
             binding.root.setOnClickListener{
                 clickListner.invoke(item)
             }
