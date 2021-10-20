@@ -12,6 +12,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -47,8 +49,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userProfileTextView: TextView
     private lateinit var userProfileImageView: ImageView
     private lateinit var userProfile: UserProfile
-    private val REQUEST_IMAGE_CAPTURE = 111
-    private val PICK_IMAGE = 122
     private lateinit var toolbar: Toolbar
     private lateinit var notificationText: TextView
     private var notificationCount: String = "0"
@@ -56,6 +56,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cartView: MenuItem
     private var cartViewVisibility: Boolean = false
     lateinit var toolbarLogoLayout: ConstraintLayout
+    lateinit var activityResultLauncherForCamera: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncherForGallary: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,6 +149,43 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        activityResultLauncherForCamera = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val imageBitmap = result.data?.extras?.get("data") as Bitmap
+                userProfileImageView.setImageBitmap(imageBitmap)
+                saveToInternalStorage(imageBitmap, userProfile.userId, this@MainActivity)
+                Glide.with(this@MainActivity)
+                    .load(
+                        loadProfilePictureFromInternalStorage(this@MainActivity, userProfile.userId)
+                            ?: ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.profile_placeholder,
+                                null
+                            )
+                    )
+                    .circleCrop()
+                    .into(userProfileImageView)
+            }
+        }
+
+        activityResultLauncherForGallary = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val imageBitmap = MediaStore.Images.Media.getBitmap(
+                    this@MainActivity.contentResolver,
+                    result.data?.data
+                )
+                userProfileImageView.setImageBitmap(imageBitmap)
+                saveToInternalStorage(imageBitmap, userProfile.userId, this@MainActivity)
+                Glide.with(this@MainActivity)
+                    .load(result.data?.data)
+                    .circleCrop()
+                    .into(userProfileImageView)
+            }
+        }
     }
 
     private fun getForegroundFragment(): HomeFragment? {
@@ -158,7 +197,7 @@ class MainActivity : AppCompatActivity() {
     private fun dispatchPicturePickerIntent() {
         val photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
-        startActivityForResult(photoPickerIntent, PICK_IMAGE)
+        activityResultLauncherForGallary.launch(photoPickerIntent)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -212,30 +251,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            userProfileImageView.setImageBitmap(imageBitmap)
-            saveToInternalStorage(imageBitmap, userProfile.userId, this)
-            Glide.with(this)
-                .load(
-                    loadProfilePictureFromInternalStorage(this, userProfile.userId)
-                        ?: ResourcesCompat.getDrawable(resources, R.drawable.profile_placeholder, null)
-                )
-                .circleCrop()
-                .into(userProfileImageView)
-        } else if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            val imageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, data?.data)
-            userProfileImageView.setImageBitmap(imageBitmap)
-            saveToInternalStorage(imageBitmap, userProfile.userId, this)
-            Glide.with(this)
-                .load(data?.data)
-                .circleCrop()
-                .into(userProfileImageView)
-        }
-    }
-
     fun updateUserProfileDetails(userProfile: UserProfile) {
         this.userProfile = userProfile
         userProfileTextView.text = userProfile.getNormalisedName()
@@ -251,7 +266,8 @@ class MainActivity : AppCompatActivity() {
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            activityResultLauncherForCamera
+            activityResultLauncherForCamera.launch(takePictureIntent)
         } catch (e: ActivityNotFoundException) {
             e.printStackTrace()
             Toast.makeText(this, getString(R.string.intent_failure_message), Toast.LENGTH_SHORT)
