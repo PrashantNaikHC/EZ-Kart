@@ -65,6 +65,7 @@
     <string name="view_cart_header_text">Hey! No delivery charges on this order</string>
     <string name="remove_item_from_cart">Remove item from cart</string>
     <string name="place_order">Place Order</string>
+    <string name="order_placement_successful">Order placed successfully</string>
 
     <!--Main Activity-->
     <string name="log_out_message">Do you want to logout from application?</string>
@@ -77,5 +78,6 @@
     <string name="source_gallary">Gallary</string>
     <string name="intent_failure_message">Something went wrong, Please try again</string>
     <string name="notification_item">notification item</string>
+    <string name="order_placement_failed">No items in the cart</string>
 
 </resources>

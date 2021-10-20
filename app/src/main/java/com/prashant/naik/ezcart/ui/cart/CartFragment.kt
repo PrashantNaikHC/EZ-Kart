@@ -13,11 +13,13 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prashant.naik.ezcart.MainActivity
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.CartItemAdapter
+import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.databinding.FragmentCartBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,6 +33,7 @@ class CartFragment : Fragment() {
     @Inject
     lateinit var factory: CartViewModelFactory
     lateinit var viewModel: CartViewModel
+    lateinit var cartItems: List<Item>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,10 +46,20 @@ class CartFragment : Fragment() {
 
         binding.cartHeader.text = getHighlightedText()
         binding.placeOrderButton.setOnClickListener {
-            updateTotals()
+            if(cartItems.isNotEmpty()){
+                viewModel.loadItemsToOrders(cartItems)
+                cartItems.forEach {
+                    viewModel.removeItemFromCart(it.itemName)
+                }
+                Toast.makeText(requireActivity(), getString(R.string.order_placement_successful),Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
+            } else {
+                Toast.makeText(requireActivity(), getString(R.string.order_placement_failed),Toast.LENGTH_SHORT).show()
+            }
         }
 
         viewModel.cartItemsList.observe(viewLifecycleOwner, { items ->
+            cartItems = items
             adapter.setData(items.toMutableList())
             (activity as? MainActivity)?.setNotificationCount(items.count())
             updateTotals()

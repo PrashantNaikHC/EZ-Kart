@@ -55,6 +55,11 @@ class RepositoryImpl @Inject constructor(
         Log.d(TAG, "clearUserData: ")
     }
 
+    override suspend fun addToOrders(order: Order) {
+        cachedDataSource.saveOrders(listOf(order))
+        localDataSource.saveOrdersToDatabase(listOf(order))
+    }
+
     override suspend fun invalidateAndLoadLoginItems(): List<Item> {
         val newListLoginItems = loadLoginItemsFromNetwork()
         localDataSource.clearUserData()

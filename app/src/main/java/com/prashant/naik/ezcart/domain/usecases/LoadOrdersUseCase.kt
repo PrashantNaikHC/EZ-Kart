@@ -6,4 +6,5 @@ import javax.inject.Inject
 
 class LoadOrdersUseCase @Inject constructor(val repository: Repository) {
     suspend fun loadOrders(): List<Order> = repository.loadOrders()
+    suspend fun addToOrders(order: Order)  = repository.addToOrders(order)
 }

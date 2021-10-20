@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var userProfileTextView: TextView
     private lateinit var userProfileImageView: ImageView
-    private lateinit var userProfile: UserProfile
+    lateinit var userProfile: UserProfile
     private lateinit var toolbar: Toolbar
     private lateinit var notificationText: TextView
     private var notificationCount: String = "0"

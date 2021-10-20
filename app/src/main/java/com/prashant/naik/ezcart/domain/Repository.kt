@@ -11,7 +11,9 @@ interface Repository {
 
     suspend fun loadLoginItems(): List<Item>?
     suspend fun invalidateAndLoadLoginItems(): List<Item>
+
     suspend fun loadOrders(): List<Order>
+    suspend fun addToOrders(order: Order)
 
     suspend fun addToCart(item: Item)
 

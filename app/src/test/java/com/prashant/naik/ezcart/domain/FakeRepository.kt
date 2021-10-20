@@ -33,6 +33,11 @@ class FakeRepository : Repository {
         return orders
     }
 
+    override suspend fun addToOrders(order: Order) {
+        cartItems.clear()
+        orders = mutableListOf(order)
+    }
+
     override suspend fun addToCart(item: Item) {
         cartItems.add(item)
     }
