@@ -9,6 +9,7 @@ class Constants {
         const val ORDER_ITEMS_DATABASE = "order_items"
         const val FEEDBACK_DATABASE = "login_items"
         const val BASE_URL = "https://demo9990262.mockable.io/login/"
+        const val DISCORD_BASE_URL = "https://discordapp.com/api/"
         const val IMAGE_DIRECTORY = "imageDir"
         const val FEEDBACK_TEXT_LIMIT = 500
     }

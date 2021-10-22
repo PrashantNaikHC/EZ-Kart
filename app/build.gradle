@@ -66,6 +66,8 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField("String", "API_KEY", API_KEY_IF_PRESENT)
+        buildConfigField("String", "DISCORD_WEBHOOK_ID", webhookId)
+        buildConfigField("String", "DISCORD_WEBHOOK_TOKEN", webhookToken)
         testInstrumentationRunner "com.prashant.naik.ezcart.HiltTestRunner"
     }
 
