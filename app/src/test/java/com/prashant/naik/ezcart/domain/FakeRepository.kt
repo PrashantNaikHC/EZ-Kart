@@ -2,6 +2,7 @@ package com.prashant.naik.ezcart.domain
 
 import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.data.Order
+import com.prashant.naik.ezcart.data.discord.DiscordObject
 import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
 
@@ -59,4 +60,6 @@ class FakeRepository : Repository {
         cartItems.clear()
         loginItems.clear()
     }
+
+    override suspend fun postToDiscord(discordObject: DiscordObject) { }
 }

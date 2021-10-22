@@ -52,12 +52,15 @@ class CartFragment : Fragment() {
         binding.cartHeader.text = getHighlightedText()
         binding.placeOrderButton.setOnClickListener {
             if(cartItems.isNotEmpty()){
-                viewModel.loadItemsToOrders(cartItems, lastOrder)
-                cartItems.forEach {
-                    viewModel.removeItemFromCart(it.itemName)
-                }
+                val userName = (requireActivity() as MainActivity).userProfile.getNormalisedName()
+                val loadItemsToOrders = viewModel.loadItemsToOrders(cartItems, lastOrder, userName)
                 Toast.makeText(requireActivity(), getString(R.string.order_placement_successful),Toast.LENGTH_SHORT).show()
-                findNavController().popBackStack()
+                loadItemsToOrders.invokeOnCompletion {
+                    cartItems.forEach {
+                        viewModel.removeItemFromCart(it.itemName)
+                    }
+                    findNavController().popBackStack()
+                }
             } else {
                 Toast.makeText(requireActivity(), getString(R.string.order_placement_failed),Toast.LENGTH_SHORT).show()
             }

@@ -6,6 +6,7 @@ import com.prashant.naik.ezcart.data.Order
 import com.prashant.naik.ezcart.data.datasource.CachedDataSource
 import com.prashant.naik.ezcart.data.datasource.LocalDataSource
 import com.prashant.naik.ezcart.data.datasource.RemoteDataSource
+import com.prashant.naik.ezcart.data.discord.DiscordObject
 import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
 import javax.inject.Inject
@@ -53,6 +54,10 @@ class RepositoryImpl @Inject constructor(
         localDataSource.clearUserData()
         cachedDataSource.clearUserData()
         Log.d(TAG, "clearUserData: ")
+    }
+
+    override suspend fun postToDiscord(discordObject: DiscordObject) {
+        remoteDataSource.postToDiscord(discordObject)
     }
 
     override suspend fun addToOrders(order: Order) {

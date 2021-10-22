@@ -2,6 +2,7 @@ package com.prashant.naik.ezcart.domain
 
 import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.data.Order
+import com.prashant.naik.ezcart.data.discord.DiscordObject
 import com.prashant.naik.ezcart.data.feedback.Feedback
 import com.prashant.naik.ezcart.data.profile.UserProfile
 
@@ -23,4 +24,7 @@ interface Repository {
     suspend fun addFeedback(feedback: Feedback)
 
     suspend fun clearUserData()
+
+    // Discord API Methods
+    suspend fun postToDiscord(discordObject: DiscordObject)
 }
