@@ -14,4 +14,7 @@ interface OrdersDao {
 
     @Query("SELECT * FROM order_items")
     suspend fun getOrderItems() : List<Order>
+
+    @Query("DELETE FROM order_items")
+    suspend fun clearOrders()
 }

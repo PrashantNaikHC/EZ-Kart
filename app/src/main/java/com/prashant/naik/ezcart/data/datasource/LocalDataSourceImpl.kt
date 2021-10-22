@@ -63,5 +63,6 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun clearUserData() {
         cartItemsDao.clearCartItems()
         loginItemsDao.clearLoginItems()
+        ordersDao.clearOrders()
     }
 }

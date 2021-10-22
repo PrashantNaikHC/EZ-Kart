@@ -34,11 +34,15 @@ class CartViewModel @Inject constructor(
         return _cartItemsList.value?.map { it.price }?.sum() ?: 0
     }
 
-    fun loadItemsToOrders(cartItems: List<Item>) = viewModelScope.launch {
+    fun loadLastOrder() = liveData {
+        val order =  OrdersAdapter.getLatestOrder(ordersUseCase.loadOrders())
+        emit(order)
+    }
+
+    fun loadItemsToOrders(cartItems: List<Item>, lastOrder: Order) = viewModelScope.launch {
         val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.US)
         val currentDate = simpleDateFormat.format(Date())
 
-        val lastOrder = OrdersAdapter.getLatestOrder(ordersUseCase.loadOrders())
         ordersUseCase.addToOrders(Order(
             data = cartItems,
             orderDate = currentDate,

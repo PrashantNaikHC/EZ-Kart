@@ -106,7 +106,16 @@ class CartViewModelTest {
         )
         repository.cartItems = items
         repository.orders = ordersAdded
-        viewModel.loadItemsToOrders(items)
+        viewModel.loadItemsToOrders(items, Order(
+            listOf(
+                Item("Dollar","desc1","12-12-21","item1",12,"1 pc"),
+                Item("Dollar","desc1","12-12-21","item2",12,"1 pc"),
+            ),
+            "12-23-21",
+            100,
+            123,
+            111
+        ))
         viewModel.getCartItems()
         val result = viewModel.cartItemsList.getOrAwaitValue()
         assertThat(result).isEqualTo(listOf<Item>())

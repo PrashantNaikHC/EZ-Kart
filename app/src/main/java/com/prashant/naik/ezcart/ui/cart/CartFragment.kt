@@ -20,6 +20,7 @@ import com.prashant.naik.ezcart.MainActivity
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.CartItemAdapter
 import com.prashant.naik.ezcart.data.Item
+import com.prashant.naik.ezcart.data.Order
 import com.prashant.naik.ezcart.databinding.FragmentCartBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -34,6 +35,7 @@ class CartFragment : Fragment() {
     lateinit var factory: CartViewModelFactory
     lateinit var viewModel: CartViewModel
     lateinit var cartItems: List<Item>
+    lateinit var lastOrder: Order
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,11 +45,14 @@ class CartFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(CartViewModel::class.java)
         setupAdapter()
         viewModel.getCartItems()
+        viewModel.loadLastOrder().observe(viewLifecycleOwner, {
+            lastOrder = it
+        })
 
         binding.cartHeader.text = getHighlightedText()
         binding.placeOrderButton.setOnClickListener {
             if(cartItems.isNotEmpty()){
-                viewModel.loadItemsToOrders(cartItems)
+                viewModel.loadItemsToOrders(cartItems, lastOrder)
                 cartItems.forEach {
                     viewModel.removeItemFromCart(it.itemName)
                 }
