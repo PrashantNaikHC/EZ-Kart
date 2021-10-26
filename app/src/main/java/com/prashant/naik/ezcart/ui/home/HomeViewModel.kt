@@ -5,8 +5,10 @@ import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.domain.usecases.CartUseCase
 import com.prashant.naik.ezcart.domain.usecases.LoadLoginItemsUseCase
 import com.prashant.naik.ezcart.domain.usecases.LoginUserUseCase
+import com.prashant.naik.ezcart.network.SocketClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,6 +38,9 @@ class HomeViewModel @Inject constructor(
         _loginItems.value = loadItemsUseCase.invalidateAndloadLoginItems()
     }
 
+    fun setupClient() = runBlocking {
+        SocketClient().setup()
+    }
 }
 
 @Suppress("UNCHECKED_CAST")

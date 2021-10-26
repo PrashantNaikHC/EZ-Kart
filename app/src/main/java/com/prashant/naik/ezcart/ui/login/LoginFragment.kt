@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.prashant.naik.ezcart.R
+import com.prashant.naik.ezcart.data.profile.UserProfile
 import com.prashant.naik.ezcart.databinding.FragmentLoginBinding
 import com.prashant.naik.ezcart.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +29,7 @@ class LoginFragment : DisposableFragment() {
 
     private lateinit var binding: FragmentLoginBinding
 
-    private var isUserNameValidated = false
+    private var isUserNameValidated = true
 
     @Inject
     lateinit var factory: LoginViewModelFactory
@@ -58,6 +59,9 @@ class LoginFragment : DisposableFragment() {
 
         initProgressDialog()
         updateLoginButton()
+        binding.loginLogo.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(UserProfile("prashant@gmail.com","prashant","naik","ASDFq1234!","1234567890")))
+        }
         binding.loginButton.setOnClickListener {
             it.hideKeyboard()
             progressDialog.show()
