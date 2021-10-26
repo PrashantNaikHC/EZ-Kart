@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -58,6 +59,10 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+
+        viewModel.getUpdatesFromServer().observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        }
 
         viewModel.getItemsOnCart().observe(viewLifecycleOwner, {
             (activity as? MainActivity)?.setNotificationCount(it)
