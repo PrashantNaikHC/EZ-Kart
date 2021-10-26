@@ -8,7 +8,6 @@ import com.prashant.naik.ezcart.domain.usecases.LoginUserUseCase
 import com.prashant.naik.ezcart.network.SocketClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,8 +37,8 @@ class HomeViewModel @Inject constructor(
         _loginItems.value = loadItemsUseCase.invalidateAndloadLoginItems()
     }
 
-    fun setupClient() = runBlocking {
-        SocketClient().setup()
+    fun setupClient() = viewModelScope.launch {
+        SocketClient().getUpdatesFromServer()
     }
 }
 
