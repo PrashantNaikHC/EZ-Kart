@@ -104,7 +104,7 @@ class RegistrationFragment : DisposableFragment() {
             passwordObservable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<String>(), Observer<String> {
-                    override fun onNext(text: String?) {
+                    override fun onNext(text: String) {
                         isPasswordValidated =
                             validateSignUpPassword(binding.passwordInputEditText, text)
                         updateRegistrationButton()

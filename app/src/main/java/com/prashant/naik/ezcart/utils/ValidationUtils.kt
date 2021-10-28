@@ -75,14 +75,14 @@ fun validateFeedbackField(textInputLayout: TextInputLayout?, target: String?): B
     return validationSuccessful
 }
 
-fun validateSignUpPassword(textInputLayout: TextInputLayout?, target: String?): Boolean {
+fun validateSignUpPassword(textInputLayout: TextInputLayout?, target: String): Boolean {
     var validationSuccessful = false
     val numberRegex = Regex("[0-9]+")
     val lowerLettersRegex = Regex("[a-z]+")
     val upperLettersRegex = Regex("[A-Z]+")
     val specialCharsRegex = Regex("[:;~!@#$%^&*()_+\\-=]")
     when {
-        target!!.length < 6 -> textInputLayout?.error = textInputLayout?.context?.getString(R.string.password_validation_text_1)
+        target.length < 6 -> textInputLayout?.error = textInputLayout?.context?.getString(R.string.password_validation_text_1)
         !target.contains(numberRegex) -> {
             textInputLayout?.setupInputLayout(
                 errorString = textInputLayout.context.getString(R.string.password_validation_text_2)
