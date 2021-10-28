@@ -1,13 +1,13 @@
 package com.prashant.naik.ezcart.ui.cart
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import com.prashant.naik.ezcart.MainCoroutineRule
 import com.prashant.naik.ezcart.data.Item
 import com.prashant.naik.ezcart.data.Order
 import com.prashant.naik.ezcart.domain.FakeRepository
 import com.prashant.naik.ezcart.domain.usecases.CartUseCase
+import com.prashant.naik.ezcart.domain.usecases.DiscordApiUseCase
 import com.prashant.naik.ezcart.domain.usecases.LoadOrdersUseCase
 import com.prashant.naik.ezcart.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,7 +33,7 @@ class CartViewModelTest {
     @Before
     fun setup(){
         repository = FakeRepository()
-        viewModel = CartViewModel(CartUseCase(repository), LoadOrdersUseCase(repository))
+        viewModel = CartViewModel(CartUseCase(repository), LoadOrdersUseCase(repository), DiscordApiUseCase(repository))
     }
 
     @Test
@@ -115,7 +115,7 @@ class CartViewModelTest {
             100,
             123,
             111
-        ))
+        ), "Prashant Kumar")
         viewModel.getCartItems()
         val result = viewModel.cartItemsList.getOrAwaitValue()
         assertThat(result).isEqualTo(listOf<Item>())
