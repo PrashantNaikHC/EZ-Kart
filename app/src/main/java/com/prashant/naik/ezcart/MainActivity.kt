@@ -23,6 +23,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -40,6 +41,7 @@ import com.prashant.naik.ezcart.utils.loadProfilePictureFromInternalStorage
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.*
 import java.util.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -49,7 +51,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var userProfileTextView: TextView
     private lateinit var userProfileImageView: ImageView
-    lateinit var userProfile: UserProfile
     private lateinit var toolbar: Toolbar
     private lateinit var notificationText: TextView
     private var notificationCount: String = "0"
@@ -59,6 +60,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbarLogoLayout: ConstraintLayout
     private lateinit var activityResultLauncherForCamera: ActivityResultLauncher<Intent>
     private lateinit var activityResultLauncherForGallary: ActivityResultLauncher<Intent>
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         toolbarLogoLayout = toolbar[0].findViewById(R.id.constraint_toolbar_layout)
+        mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -156,10 +161,10 @@ class MainActivity : AppCompatActivity() {
             if (result.resultCode == RESULT_OK) {
                 val imageBitmap = result.data?.extras?.get("data") as Bitmap
                 userProfileImageView.setImageBitmap(imageBitmap)
-                saveToInternalStorage(imageBitmap, userProfile.userId, this@MainActivity)
+                saveToInternalStorage(imageBitmap, mainViewModel.userProfile.userId, this@MainActivity)
                 Glide.with(this@MainActivity)
                     .load(
-                        loadProfilePictureFromInternalStorage(this@MainActivity, userProfile.userId)
+                        loadProfilePictureFromInternalStorage(this@MainActivity, mainViewModel.userProfile.userId)
                             ?: ResourcesCompat.getDrawable(
                                 resources,
                                 R.drawable.profile_placeholder,
@@ -180,7 +185,7 @@ class MainActivity : AppCompatActivity() {
                     result.data?.data
                 )
                 userProfileImageView.setImageBitmap(imageBitmap)
-                saveToInternalStorage(imageBitmap, userProfile.userId, this@MainActivity)
+                saveToInternalStorage(imageBitmap, mainViewModel.userProfile.userId, this@MainActivity)
                 Glide.with(this@MainActivity)
                     .load(result.data?.data)
                     .circleCrop()
@@ -252,12 +257,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateUserProfileDetails(userProfile: UserProfile) {
-        this.userProfile = userProfile
-        userProfileTextView.text = userProfile.getNormalisedName()
+    fun updateUserProfileDetails() {
+        userProfileTextView.text = mainViewModel.userProfile.getNormalisedName()
         Glide.with(this)
             .load(
-                loadProfilePictureFromInternalStorage(this, userProfile.userId)
+                loadProfilePictureFromInternalStorage(this, mainViewModel.userProfile.userId)
                     ?: ResourcesCompat.getDrawable(resources, R.drawable.profile_placeholder, null)
             )
             .circleCrop()
