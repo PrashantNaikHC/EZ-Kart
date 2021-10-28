@@ -17,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prashant.naik.ezcart.MainActivity
+import com.prashant.naik.ezcart.MainViewModel
+import com.prashant.naik.ezcart.MainViewModelFactory
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.CartItemAdapter
 import com.prashant.naik.ezcart.data.Item
@@ -34,6 +36,9 @@ class CartFragment : Fragment() {
     @Inject
     lateinit var factory: CartViewModelFactory
     lateinit var viewModel: CartViewModel
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
+    private lateinit var mainViewModel: MainViewModel
     lateinit var cartItems: List<Item>
     lateinit var lastOrder: Order
 
@@ -48,11 +53,12 @@ class CartFragment : Fragment() {
         viewModel.loadLastOrder().observe(viewLifecycleOwner, {
             lastOrder = it
         })
+        mainViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(MainViewModel::class.java)
 
         binding.cartHeader.text = getHighlightedText()
         binding.placeOrderButton.setOnClickListener {
             if(cartItems.isNotEmpty()){
-                val userName = (requireActivity() as MainActivity).userProfile.getNormalisedName()
+                val userName = mainViewModel.userProfile.getNormalisedName()
                 val loadItemsToOrders = viewModel.loadItemsToOrders(cartItems, lastOrder, userName)
                 Toast.makeText(requireActivity(), getString(R.string.order_placement_successful),Toast.LENGTH_SHORT).show()
                 loadItemsToOrders.invokeOnCompletion {

@@ -2,6 +2,7 @@ package com.prashant.naik.ezcart.ui.home
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +16,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.PagerAdapter
 import com.prashant.naik.ezcart.MainActivity
+import com.prashant.naik.ezcart.MainViewModel
+import com.prashant.naik.ezcart.MainViewModelFactory
 import com.prashant.naik.ezcart.R
 import com.prashant.naik.ezcart.adapter.BannerAdapter
 import com.prashant.naik.ezcart.adapter.ItemsAdapter
 import com.prashant.naik.ezcart.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -31,6 +35,9 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var factory: HomeViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
+    private lateinit var mainViewModel: MainViewModel
     private val adapter by lazy { ItemsAdapter() }
     private val args by navArgs<HomeFragmentArgs>()
 
@@ -43,8 +50,14 @@ class HomeFragment : Fragment() {
         setupAdapter()
 
         viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
+        mainViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(MainViewModel::class.java)
 
-        (activity as? MainActivity)?.updateUserProfileDetails(args.userProfile)
+        try {
+            mainViewModel.setCurrentUserProfile(args.userProfile)
+        } catch (e:Exception) {
+            Log.e("MainActivity", "onCreateView: ${e.message}")
+        }
+        (activity as? MainActivity)?.updateUserProfileDetails()
 
         (activity as? MainActivity)?.toolbarLogoLayout?.visibility = View.VISIBLE
         (activity as? MainActivity)?.setCartViewVisibility(true)
