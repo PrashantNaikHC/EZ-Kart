@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build App
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +34,7 @@ jobs:
         run: bash ./gradlew test --stacktrace
 
   apk:
-    name: Generate APK
+    name: Generate and Publish
     runs-on: ubuntu-latest
 
     steps:
@@ -70,7 +70,7 @@ jobs:
       - name: Create service_account.json
         id: createServiceAccount
         run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
-      - name: Deploy to Play Store (BETA)
+      - name: Deploy to Play Store (BETA Track)
         id: deploy
         uses: r0adkll/upload-google-play@v1
         with:
