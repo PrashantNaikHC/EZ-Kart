@@ -77,7 +77,6 @@ jobs:
           serviceAccountJson: service_account.json
           packageName: com.prashant.naik.ezcart
           releaseFile: app/build/outputs/bundle/release/app-release.aab
-          userFraction: 1
           inAppUpdatePriority: 5
           track: beta
           whatsNewDirectory: whatsnew/
