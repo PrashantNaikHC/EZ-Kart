@@ -79,5 +79,4 @@ jobs:
           releaseFile: app/build/outputs/bundle/release/app-release.aab
           inAppUpdatePriority: 5
           track: beta
-          status: draft
           whatsNewDirectory: whatsnew/

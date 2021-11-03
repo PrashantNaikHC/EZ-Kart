@@ -63,8 +63,8 @@ android {
         applicationId "com.prashant.naik.ezcart"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 6
-        versionName "1.0.1"
+        versionCode 7
+        versionName "1.0.2"
         buildConfigField("String", "API_KEY", API_KEY_IF_PRESENT)
         buildConfigField("String", "DISCORD_WEBHOOK_ID", webhookId)
         buildConfigField("String", "DISCORD_WEBHOOK_TOKEN", webhookToken)
